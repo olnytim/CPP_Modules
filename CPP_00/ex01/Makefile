@@ -4,24 +4,37 @@ FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 
 PREF_OBJ = obj
-SRC = main.cpp Contact.cpp PhoneBook.cpp
+SRC = main.c
 OBJ = $(patsubst %.c, $(PREF_OBJ)/%.o, $(SRC))
 HEADER = $(wildcard *.hpp)
 
 all: $(NAME)
+	@echo > /dev/null
 
-$(NAME): $(OBJ) $(HEADER) Makefile
+$(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 
-$(PREF_OBJ)/%.o: %.cpp %(HEADER) Makefile
+$(PREF_OBJ)/%.o: %.cpp $(HEADER) Makefile
 	@mkdir -p $(PREF_OBJ)
-	@$(CC) $(FLAGS) -c $< -o $@
+	@if [ ! -e $(NAME) ]; then \
+		$(CC) $(FLAGS) -c $< -o $@; \
+		echo "$(NAME) file was created!"; \
+	else \
+		$(CC) $(FLAGS) -c $< -o $@; \
+		echo "$(SRC) $(HEADER) or Makefile files were updated!"; \
+	fi
 
 clean:
-	@rm -rf $(PREF_OBJ)
+	@if [ -d $(PREF_OBJ) ]; then \
+		rm -rf $(PREF_OBJ); \
+		echo "$(PREF_OBJ) was deleted!"; \
+	fi
 
 fclean: clean
-	@rm -rf $(NAME)
+	@if [ -e $(NAME) ]; then \
+		rm -rf $(NAME); \
+		echo "$(NAME) was deleted!"; \
+	fi
 
 re:	fclean all
 
