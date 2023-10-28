@@ -1,11 +1,11 @@
-NAME = megaphone
+NAME = phone_book
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 
 PREF_OBJ = obj
-SRC = main.c
-OBJ = $(patsubst %.c, $(PREF_OBJ)/%.o, $(SRC))
+SRC = main.cpp PhoneBook.cpp Contact.cpp
+OBJ = $(patsubst %.cpp, $(PREF_OBJ)/%.o, $(SRC))
 HEADER = $(wildcard *.hpp)
 
 all: $(NAME)
@@ -13,12 +13,13 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+	@echo "$(NAME) file was created!"
+
 
 $(PREF_OBJ)/%.o: %.cpp $(HEADER) Makefile
 	@mkdir -p $(PREF_OBJ)
 	@if [ ! -e $(NAME) ]; then \
 		$(CC) $(FLAGS) -c $< -o $@; \
-		echo "$(NAME) file was created!"; \
 	else \
 		$(CC) $(FLAGS) -c $< -o $@; \
 		echo "$(SRC) $(HEADER) or Makefile files were updated!"; \

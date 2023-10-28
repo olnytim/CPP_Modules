@@ -4,42 +4,43 @@
 int main(void) {
 	PhoneBook	phonebook;
 	while (1) {
-		std::cout << "Enter one of three commands ('EXIT', 'ADD', 'SEARCH'): ";
-		std::string request;
-		std::cin >> request;
+		cout << endl << "Enter one of three commands ('EXIT', 'ADD', 'SEARCH'): ";
+		string request;
+		cin >> request;
 		if (request == "ADD") {
 			Contact		contact;
-			std::cout << "Enter first name: ";
-			std::cin >> contact.first_name;
-			std::cout << "Enter last name: ";
-			std::cin >> contact.last_name;
-			std::cout << "Enter nickname: ";
-			std::cin >> contact.nick_name;
-			std::cout << "Enter phone number: ";
-			std::cin >> contact.phone_number;
-			std::cout << "Enter darkest secret: ";
-			std::cin >> contact.darkest_secret;
+			contact.setContact();
 			if (!contact.isEmpty()) {
-				std::cout << "Everything is alright!" << std::endl;
+				cout << "Contact was added!" << endl;
 				phonebook.contact_added(contact);
 			}
 			else {
-				std::cout << "Contact can't contain empty fields." << std::endl;
+				cout << "Contact can't contain empty fields!" << endl;
 			}
 		}
 		else if (request == "SEARCH") {
-			phonebook.display_contacts();
-			std::string	index;
-			std::cout << "Enter index to display: ";
-			std::cin >> index;
-			if (index >= "0" && index <= "9") {
-				const Contact *found_contact = phonebook.get_contact(index);
-				found_contact->display_contact(index);
+			phonebook.displayContacts();
+			string	index;
+			cout << endl << "Enter index to display: ";
+			cin >> index;
+			if (index >= "0" && index <= "7") {
+				const Contact *found_contact = phonebook.getContact(index);
+				if (!found_contact) {
+					cout << "Wrong contact. Use correct one!" << endl;
+				}
+				else found_contact->displayContact();
 			}
 			else {
-				std::cout << "Wrong contact" << std::endl;
+				cout << "Wrong contact. Use correct one!" << endl;
 			}
 		}
-		else if (request == "EXIT") return (0);
+		else if (cin.eof()) {
+			cout << endl << "Do not use CTRL + D!" << endl;
+			return (1);
+		}
+		else if (request == "EXIT")
+			return (0);
+		else
+			cout << "Wrong argument. Try one of the list!" << endl;
 	}
 }
