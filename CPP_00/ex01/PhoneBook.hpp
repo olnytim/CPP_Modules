@@ -6,18 +6,18 @@
 class PhoneBook {
 
 public:
-	PhoneBook() : contacts_counter(0) {}
+	PhoneBook() : _contactsCounter(0) {}
 	void	contact_added(const Contact &contact);
 	void	displayContacts(void);
 	const Contact	*getContact(string index);
 
 private:
 
-	Contact	contacts[8];
-	int	contacts_counter;
-	int	temp;
+	Contact	_contacts[8];
+	int	_contactsCounter;
+	int	_temp;
 
-	string	formattedOutput(string text);
+	string	_formattedOutput(string text);
 };
 
 #endif

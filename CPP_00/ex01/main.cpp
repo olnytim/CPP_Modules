@@ -36,10 +36,10 @@ int main(void) {
 		}
 		else if (cin.eof()) {
 			cout << endl << "Do not use CTRL + D!" << endl;
-			return (1);
+			return 1;
 		}
 		else if (request == "EXIT")
-			return (0);
+			return 0;
 		else
 			cout << "Wrong argument. Try one of the list!" << endl;
 	}

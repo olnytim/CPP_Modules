@@ -1,46 +1,46 @@
 #include "Contact.hpp"
 
 bool Contact::isEmpty(void) {
-	return (first_name.empty() && last_name.empty() && nick_name.empty()
-			&& phone_number.empty() && darkest_secret.empty());
+	return _firstName.empty() && _lastName.empty() && _nickName.empty()
+			&& _phoneNumber.empty() && _darkestSecret.empty();
 }
 
 void	Contact::displayContact(void) const {
-	cout << endl << "First name is > " << first_name << endl;;
-	cout << "Last name is > " << last_name << endl;;
-	cout << "Nick name is > " << nick_name << endl;
-	cout << "Phone Number is > " << phone_number << endl;
-	cout << "Darkest_secret is > " << darkest_secret << endl;
+	cout << endl << "First name is > " << _firstName << endl;;
+	cout << "Last name is > " << _lastName << endl;;
+	cout << "Nickname is > " << _nickName << endl;
+	cout << "Phone number is > " << _phoneNumber << endl;
+	cout << "Darkest secret is > " << _darkestSecret << endl;
 }
 
-string	Contact::formattedOutput(const string text) const {
+string	Contact::_formattedOutput(const string text) const {
 	if (text.size() > 10) {
-		return (text.substr(0, 9) + ".");
+		return text.substr(0, 9) + ".";
 	}
 	return (text);
 }
 
 void	Contact::setContact(void) {
 	cout << endl << "Enter First name: ";
-	cin >> first_name;
+	cin >> _firstName;
 	if (cin.eof()) return ;
 	cout << "Enter Last name: ";
-	cin >> last_name;
+	cin >> _lastName;
 	if (cin.eof()) return ;
 	cout << "Enter Nickname: ";
-	cin >> nick_name;
+	cin >> _nickName;
 	if (cin.eof()) return ;
 	cout << "Enter Phone number: ";
-	cin >> phone_number;
+	cin >> _phoneNumber;
 	if (cin.eof()) return ;
 	cout << "Enter Darkest secret: ";
-	cin >> darkest_secret;
+	cin >> _darkestSecret;
 	if (cin.eof()) return ;
 }
 
 void	Contact::preloadContacts(Contact contact, int i) const {
 	cout << "|" << setw(10) << i;
-	cout << "|" << setw(10) << formattedOutput(contact.first_name);
-	cout << "|" << setw(10) << formattedOutput(contact.last_name);
-	cout << "|" << setw(10) << formattedOutput(contact.nick_name) << "|" << endl;
+	cout << "|" << setw(10) << _formattedOutput(contact._firstName);
+	cout << "|" << setw(10) << _formattedOutput(contact._lastName);
+	cout << "|" << setw(10) << _formattedOutput(contact._nickName) << "|" << endl;
 }
