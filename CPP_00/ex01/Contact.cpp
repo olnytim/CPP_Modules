@@ -1,5 +1,7 @@
 #include "Contact.hpp"
 
+Contact::Contact() : _firstName(string()), _lastName(string()), _nickName(string()), _phoneNumber(string()), _darkestSecret(string()) {}
+
 bool Contact::isEmpty(void) {
 	return _firstName.empty() && _lastName.empty() && _nickName.empty()
 			&& _phoneNumber.empty() && _darkestSecret.empty();

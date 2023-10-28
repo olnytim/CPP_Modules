@@ -1,5 +1,7 @@
 #include "PhoneBook.hpp"
 
+PhoneBook::PhoneBook() : _contactsCounter(0) {}
+
 void	PhoneBook::contact_added(const Contact &contact) {
 	if (_contactsCounter < 8) {
 		_contacts[_contactsCounter++] = contact;

@@ -14,7 +14,7 @@ using std::getline;
 class Contact {
 
 public:
-	Contact() : _firstName(string()), _lastName(string()), _nickName(string()), _phoneNumber(string()), _darkestSecret(string()) {} // is it needed?
+	Contact();
 	bool	isEmpty(void);
 	void	displayContact(void) const;
 	void	setContact(void);

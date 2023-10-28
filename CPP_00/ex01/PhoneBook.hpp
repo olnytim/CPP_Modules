@@ -6,7 +6,7 @@
 class PhoneBook {
 
 public:
-	PhoneBook() : _contactsCounter(0) {}
+	PhoneBook();
 	void	contact_added(const Contact &contact);
 	void	displayContacts(void);
 	const Contact	*getContact(string index);
