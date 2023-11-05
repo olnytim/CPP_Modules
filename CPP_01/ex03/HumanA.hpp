@@ -10,7 +10,7 @@ private:
 	Weapon	weapon;
 
 public:
-	HumanA(string humanName, Weapon weaponType);
+	HumanA(const string &humanName, Weapon weaponType);
 	~HumanA();
 	void	attack(void);
 };

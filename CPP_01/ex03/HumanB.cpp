@@ -1,6 +1,6 @@
 #include "HumanB.hpp"
 
-HumanB::HumanB(string humanName) : _name(humanName) {}
+HumanB::HumanB(string humanName) : _name(humanName), weapon(nullptr) {}
 HumanB::~HumanB() {}
 
 void HumanB::attack() {
@@ -12,6 +12,6 @@ void HumanB::attack() {
 	}
 }
 
-void HumanB::setWeapon(Weapon *newWeapon) {
-	weapon = newWeapon;
+void HumanB::setWeapon(Weapon newWeapon) {
+	weapon = &newWeapon;
 }

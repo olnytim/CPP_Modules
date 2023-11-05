@@ -1,6 +1,6 @@
 #include "HumanA.hpp"
 
-HumanA::HumanA(string humanName, Weapon weaponType) : _name(humanName), weapon(weaponType) {}
+HumanA::HumanA(const string &humanName, Weapon weaponType) : _name(humanName), weapon(weaponType) {}
 HumanA::~HumanA() {}
 
 void HumanA::attack() {

@@ -7,3 +7,6 @@ string	Weapon::getType() {
 void	Weapon::setType(string newType) {
 	_type = newType;
 }
+
+Weapon::Weapon(const string &weaponType) : _type(weaponType) {}
+Weapon::~Weapon() {}

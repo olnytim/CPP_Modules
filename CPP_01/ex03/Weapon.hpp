@@ -15,8 +15,10 @@ private:
 	string	_type;
 
 public:
+	Weapon(const string &weaponType);
+	~Weapon();
 	string	getType();
-	void	setType();
+	void	setType(string newType);
 };
 
 #endif

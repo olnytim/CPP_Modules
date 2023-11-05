@@ -13,7 +13,7 @@ public:
 	HumanB(string humanName);
 	~HumanB();
 
-	void	setWeapon(Weapon *newWeapon);
+	void	setWeapon(Weapon newWeapon);
 	void	attack(void);
 };
 
