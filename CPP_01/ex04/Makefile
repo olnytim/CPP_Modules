@@ -1,4 +1,4 @@
-NAME = violence
+NAME = loser
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++

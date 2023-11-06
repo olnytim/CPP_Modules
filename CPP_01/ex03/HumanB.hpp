@@ -4,17 +4,15 @@
 #include "Weapon.hpp"
 
 class HumanB {
-
 private:
 	string	_name;
-	Weapon	*weapon;
+	Weapon	*_weapon;
 
 public:
-	HumanB(string humanName);
+	HumanB(const string humanName);
 	~HumanB();
-
-	void	setWeapon(Weapon newWeapon);
 	void	attack(void);
+	void	setWeapon(Weapon &weaponType);
 };
 
 #endif
