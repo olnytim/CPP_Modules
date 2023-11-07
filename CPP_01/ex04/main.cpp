@@ -7,7 +7,9 @@ int	main(int ac, char **av) {
 	}
 
 	MiniSed a(av[1], av[2], av[3]);
-
+	a.openSourceFile(a.getFilename());
+	a.createNewFile();
+	a.readReplace();
 
 	return 0;
 }

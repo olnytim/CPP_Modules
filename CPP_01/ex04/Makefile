@@ -1,10 +1,10 @@
-NAME = loser
+NAME = sed
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 
 PREF_OBJ = obj
-SRC = HumanB.cpp HumanA.cpp main.cpp Weapon.cpp
+SRC = main.cpp MiniSed.cpp
 OBJ = $(patsubst %.cpp, $(PREF_OBJ)/%.o, $(SRC))
 HEADER = $(wildcard *.hpp)
 
