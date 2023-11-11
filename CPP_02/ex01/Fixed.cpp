@@ -15,7 +15,6 @@ Fixed::~Fixed() {
 }
 
 int Fixed::getRawBits() const {
-//	cout << "getRawBits member function called" << endl;
 	return _value;
 }
 
