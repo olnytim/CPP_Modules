@@ -1,4 +1,4 @@
-NAME = fix2
+NAME = fix0
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++

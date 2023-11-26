@@ -4,11 +4,11 @@ Fixed::Fixed() {
 	_value = 0;
 }
 
-Fixed::Fixed(const int value) {
+Fixed::Fixed(int const value) {
 	_value = value << _fract_value;
 }
 
-Fixed::Fixed(const float value) {
+Fixed::Fixed(float const value) {
 	_value = roundf(value * (1 << _fract_value));
 }
 
@@ -32,7 +32,7 @@ std::ostream &operator<<(std::ostream &out, const Fixed &toShow) {
 }
 
 float Fixed::toFloat() const {
-	return (float)_value / (1 << _fract_value);
+	return ((float)_value / (float)(1 << _fract_value));
 }
 
 int	Fixed::toInt() const {
@@ -64,12 +64,14 @@ bool Fixed::operator!=(const Fixed &toCopy) const {
 }
 
 Fixed Fixed::operator+(const Fixed &toCopy) const {
-	Fixed result(this->_value + toCopy.getRawBits());
+//	Fixed result(this->_value + toCopy.getRawBits());
+	Fixed result(this->toFloat() + toCopy.toFloat());
 	return result;
 }
 
 Fixed Fixed::operator-(const Fixed &toCopy) const {
-	Fixed result(this->_value - toCopy.getRawBits());
+//	Fixed result(this->_value - toCopy.getRawBits());
+	Fixed result(this->toFloat() - toCopy.toFloat());
 	return result;
 }
 
@@ -89,7 +91,7 @@ Fixed& Fixed::operator=(const Fixed &toCopy) {
 }
 
 Fixed Fixed::operator++() {
-	_value++;
+	++_value;
 	return *this;
 }
 
@@ -100,7 +102,7 @@ Fixed Fixed::operator++( int ) {
 }
 
 Fixed Fixed::operator--() {
-	_value--;
+	--_value;
 	return *this;
 }
 
@@ -111,7 +113,7 @@ Fixed Fixed::operator--( int ) {
 }
 
 Fixed Fixed::min(Fixed &num1, Fixed &num2) {
-	if (num1 > num2)	return num2;
+	if (num1 < num2)	return num2;
 	else	return num1;
 }
 
@@ -121,7 +123,7 @@ Fixed Fixed::max(Fixed &num1, Fixed &num2) {
 }
 
 const Fixed	Fixed::min(const Fixed &num1, const Fixed &num2) {
-	if (num1 > num2)	return num2;
+	if (num1 < num2)	return num2;
 	else	return num1;
 }
 

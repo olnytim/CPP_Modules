@@ -1,10 +1,10 @@
-NAME = fix1
+NAME = claptrap2
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 
 PREF_OBJ = obj
-SRC = main.cpp Fixed.cpp
+SRC = main.cpp ClapTrap.cpp
 OBJ = $(patsubst %.cpp, $(PREF_OBJ)/%.o, $(SRC))
 HEADER = $(wildcard *.hpp)
 

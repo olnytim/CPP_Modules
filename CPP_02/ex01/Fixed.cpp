@@ -28,12 +28,12 @@ Fixed& Fixed::operator=(const Fixed &toCopy) {
 	return *this;
 }
 
-Fixed::Fixed(const int value) {
+Fixed::Fixed(int const value) {
 	_value = value << _fract_value;
 	cout << "Int constructor called" << endl;
 }
 
-Fixed::Fixed(const float value) {
+Fixed::Fixed(float const value) {
 	_value = roundf(value * (1 << _fract_value));
 	cout << "Float constructor called" << endl;
 }
