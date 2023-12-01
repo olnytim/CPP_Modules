@@ -1,4 +1,6 @@
 #include "ScavTrap.hpp"
+#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int main() {
 
@@ -9,6 +11,12 @@ int main() {
 	std::cout << std::endl;
 
 	ScavTrap c("Sanji");
+	std::cout << std::endl;
+
+	FragTrap d("Zoro");
+	std::cout << std::endl;
+
+	DiamondTrap e("Nami");
 	std::cout << std::endl;
 
 	a.attack(b.getName());
@@ -25,6 +33,18 @@ int main() {
 	c.takeDamage(a.getAttack());
 	c.beRepaired(10);
 	c.guardGate();
+	std::cout << std::endl;
+
+	d.attack(c.getName());
+	d.takeDamage(c.getAttack());
+	d.beRepaired(10);
+	d.highFivesGuys();
+	std::cout << std::endl;
+
+	e.attack(d.getName());
+	e.takeDamage(d.getAttack());
+	e.beRepaired(10);
+	e.whoAmI();
 	std::cout << std::endl;
 
 	return 0;

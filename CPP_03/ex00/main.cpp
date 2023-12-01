@@ -1,12 +1,22 @@
 #include "ClapTrap.hpp"
 
-int	main(void) {
-	ClapTrap a("General Kenobi");
-	ClapTrap b(a);
-	a.attack("General Grievous");
-	a.setAttack(5);
-	a.attack("General Grievous");
-	a.takeDamage(9);
-	a.beRepaired(3);
-	return (0);
+int main() {
+
+	ClapTrap a("Luffy");
+	std::cout << std::endl;
+
+	ClapTrap b("Ussop");
+	std::cout << std::endl;
+
+	a.attack(b.getName());
+	a.takeDamage(b.getAttack());
+	a.beRepaired(7);
+	std::cout << std::endl;
+
+	b.attack(a.getName());
+	b.takeDamage(a.getAttack());
+	b.beRepaired(5);
+	std::cout << std::endl;
+
+	return 0;
 }
