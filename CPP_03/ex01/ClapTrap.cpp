@@ -1,16 +1,16 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(): _name("NoName"), _health(10), _energy(10), _attack(0) { cout << "Default constructor called" << endl; }
+ClapTrap::ClapTrap(): _name("NoName"), _health(10), _energy(10), _attack(0) { cout << "ClapTrap: Default constructor called" << endl; }
 
-ClapTrap::ClapTrap(string name): _name(name), _health(10), _energy(10), _attack(0) { cout << "Name constructor called" << endl; }
+ClapTrap::ClapTrap(string name): _name(name), _health(10), _energy(10), _attack(0) { cout << "ClapTrap: Name constructor called" << endl; }
 
 ClapTrap::ClapTrap(const ClapTrap &toCopy) {
-	cout << "Copy constructor called" << endl;
+	cout << "ClapTrap: Copy constructor called" << endl;
 	*this = toCopy;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap &toCopy) {
-	cout << "Copy assignment operator called" << endl;
+	cout << "ClapTrap: Copy assignment operator called" << endl;
 	_name = toCopy.getName();
 	_health = toCopy.getHealth();
 	_energy = toCopy.getEnergy();
@@ -18,7 +18,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &toCopy) {
 	return *this;
 }
 
-ClapTrap::~ClapTrap() { cout << "Destructor called" << endl; }
+ClapTrap::~ClapTrap() { cout << "ClapTrap: Destructor called" << endl; }
 
 void ClapTrap::attack(const string &target) {
 	if (_health > 0 && _energy > 0) {

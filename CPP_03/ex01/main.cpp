@@ -1,4 +1,4 @@
-#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int	main(void) {
 	ClapTrap a("General Kenobi");
@@ -8,5 +8,8 @@ int	main(void) {
 	a.attack("General Grievous");
 	a.takeDamage(9);
 	a.beRepaired(3);
+	ScavTrap hi;
+	hi.getName();
+	hi.attack("General Kenobi");
 	return (0);
 }
