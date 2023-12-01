@@ -1,3 +1,4 @@
+#include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
 int	main(void) {
@@ -15,5 +16,6 @@ int	main(void) {
 	hi.getName();
 	hi.attack("General Kenobi");
 
+	FragTrap c("Leon");
 	return (0);
 }
