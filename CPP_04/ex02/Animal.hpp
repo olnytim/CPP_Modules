@@ -17,7 +17,7 @@ public:
 	Animal( const Animal &toCopy );
 	Animal &operator=(const Animal &toCopy );
 
-	virtual void	makeSound( void ) const;
+	virtual void	makeSound( void ) const = 0;
 	void			setType( const string Type );
 	string			getType( void ) const;
 };

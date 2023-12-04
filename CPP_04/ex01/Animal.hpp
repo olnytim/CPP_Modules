@@ -1,8 +1,7 @@
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
 
-#include <string>
-#include <iostream>
+
 
 using std::string;
 using std::endl;
