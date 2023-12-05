@@ -10,7 +10,8 @@ WrongAnimal::~WrongAnimal() {
 
 WrongAnimal& WrongAnimal::operator=(const WrongAnimal &toCopy) {
 	cout << "WrongAnimal: " << "Copy assignment operator called" << endl;
-	_type = toCopy._type;
+	if (*this != toCopy)
+		_type = toCopy._type;
 	return *this;
 }
 

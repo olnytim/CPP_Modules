@@ -10,8 +10,10 @@ Brain::~Brain() {
 
 Brain& Brain::operator=(const Brain &toCopy) {
 	cout << "Brain: " << "Copy assignment operator called" << endl;
-	for (int i = 0; i < 100; i++) {
-		this->ideas[i] = toCopy.ideas[i];
+	if (*this != toCopy) {
+		for (int i = 0; i < 100; i++) {
+			this->ideas[i] = toCopy.ideas[i];
+		}
 	}
 	return *this;
 }

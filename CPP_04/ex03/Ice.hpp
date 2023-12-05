@@ -3,12 +3,15 @@
 
 #include "AMateria.hpp"
 
-class Ice {
-protected:
-
-
+class Ice : public AMateria {
 public:
+	Ice();
+	~Ice();
+	Ice( const Ice &toCopy );
+	Ice &operator=( const Ice &toCopy );
 
+	Ice	*clone() const;
+	void	use( ICharacter &target ) const;
 };
 
 #endif

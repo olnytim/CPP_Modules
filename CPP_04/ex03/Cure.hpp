@@ -3,12 +3,15 @@
 
 #include "AMateria.hpp"
 
-class Cure {
-protected:
-
-
+class Cure : public AMateria {
 public:
+	Cure();
+	~Cure();
+	Cure( const Cure &toCopy );
+	Cure &operator=( const Cure &toCopy );
 
+	Cure	*clone() const;
+	void	use( ICharacter &target ) const;
 };
 
 #endif

@@ -13,10 +13,12 @@ Dog::~Dog() {
 
 Dog& Dog::operator=(const Dog &toCopy) {
 	cout << "Dog: " << "Copy assignment operator called" << endl;
-	Animal::operator=(toCopy);
-	delete _brain;
-	_brain = new Brain();
-	*_brain = *toCopy._brain;
+	if (*this != toCopy) {
+		Animal::operator=(toCopy);
+		delete _brain;
+		_brain = new Brain();
+		*_brain = *toCopy._brain;
+	}
 	return *this;
 }
 

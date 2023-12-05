@@ -10,7 +10,8 @@ Animal::~Animal() {
 
 Animal& Animal::operator=(const Animal &toCopy) {
 	cout << "Animal: " << "Copy assignment operator called" << endl;
-	_type = toCopy._type;
+	if (*this != toCopy)
+		_type = toCopy._type;
 	return *this;
 }
 
