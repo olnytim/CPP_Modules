@@ -4,9 +4,6 @@
 #include "AMateria.hpp"
 
 class IMateriaSource {
-protected:
-
-
 public:
 	virtual	~IMateriaSource();
 	IMateriaSource( const IMateriaSource &toCopy );

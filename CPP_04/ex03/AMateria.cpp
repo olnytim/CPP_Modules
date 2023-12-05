@@ -4,9 +4,8 @@ AMateria::AMateria() : type("default") {
 	cout << "AMateria: Default constructor called" << endl;
 }
 
-AMateria::AMateria(const string &type) : {
+AMateria::AMateria(const string &type) : type(type) {
 	cout << "AMateria: Name constructor called" << endl;
-	this->type = type;
 }
 
 AMateria& AMateria::operator=(const AMateria &toCopy) {

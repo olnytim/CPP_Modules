@@ -6,18 +6,19 @@
 class Character : public ICharacter {
 private:
 	string	name;
-	vector<AMateria*> inventory;
+	AMateria* inventory[4];
 
 public:
 	Character();
 	~Character();
+	Character( string name );
 	Character( const Character &toCopy );
 	Character &operator=( const Character &toCopy );
 
 	const string	&getName( void ) const;
 	void	equip( AMateria *m );
 	void	unequip( int idx );
-	void	use( int i, ICharacter &target );
+	void	use( int idx, ICharacter &target );
 };
 
 #endif
