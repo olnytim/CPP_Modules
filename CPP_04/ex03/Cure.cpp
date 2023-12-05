@@ -11,20 +11,20 @@ Cure::~Cure() {
 
 Cure& Cure::operator=(const Cure &toCopy) {
 	cout << "Cure: Copy assignment operator called" << endl;
-	if (*this != toCopy) {
-		*this->type = toCopy.type;
+	if (this != &toCopy) {
+		this->type = toCopy.type;
 	}
 	return *this;
 }
 
 Cure::Cure(const Cure &toCopy) : AMateria(toCopy) {
-	cout << Cure: Copy constructor called" << endl;
+	cout << "Cure: Copy constructor called" << endl;
 }
 
-Cure* Cure::clone() const {
+AMateria* Cure::clone() const {
 	return new Cure(*this);
 }
 
-void Cure::use(ICharacter &target) const {
+void Cure::use(ICharacter &target) {
 	cout << "* heals " << target.getName() << "'s wounds *" << endl;
 }

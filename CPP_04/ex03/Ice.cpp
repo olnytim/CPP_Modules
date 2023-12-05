@@ -11,8 +11,8 @@ Ice::~Ice() {
 
 Ice& Ice::operator=(const Ice &toCopy) {
 	cout << "Ice: Copy assignment operator called" << endl;
-	if (*this != toCopy) {
-		*this->type = toCopy.type;
+	if (this != &toCopy) {
+		this->type = toCopy.type;
 	}
 	return *this;
 }
@@ -21,10 +21,10 @@ Ice::Ice(const Ice &toCopy) : AMateria(toCopy) {
 	cout << "Ice: Copy constructor called" << endl;
 }
 
-Ice* Ice::clone() const {
+AMateria* Ice::clone() const {
 	return new Ice(*this);
 }
 
-void Ice::use(ICharacter &target) const {
+void Ice::use(ICharacter &target) {
 	cout << "* shoots and ice bolt at " << target.getName() << " *" << endl;
 }

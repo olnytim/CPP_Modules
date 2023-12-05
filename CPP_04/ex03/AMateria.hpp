@@ -4,10 +4,14 @@
 #include <string>
 #include <iostream>
 
+#include "ICharacter.hpp"
+
 using	std::string;
 using	std::cout;
 using	std::endl;
 using	std::vector;
+
+class ICharacter;
 
 class AMateria {
 protected:
@@ -20,7 +24,7 @@ public:
 	AMateria( const AMateria &toCopy );
 	AMateria &operator=( const AMateria &toCopy );
 
-	string &getType( void ) const;
+	string const &getType( void ) const;
 
 	virtual AMateria	*clone( void ) const = 0;
 	virtual void	use( ICharacter &target );

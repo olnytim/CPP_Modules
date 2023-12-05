@@ -2,17 +2,16 @@
 #define ICE_HPP
 
 #include "AMateria.hpp"
-#include "ICharacter.hpp"
 
 class Ice : public AMateria {
 public:
 	Ice();
-	~Ice();
+	virtual ~Ice();
 	Ice( const Ice &toCopy );
 	Ice &operator=( const Ice &toCopy );
 
-	Ice	*clone() const;
-	void	use( ICharacter &target ) const;
+	virtual AMateria	*clone() const;
+	virtual void	use( ICharacter &target );
 };
 
 #endif

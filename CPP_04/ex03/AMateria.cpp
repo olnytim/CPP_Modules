@@ -10,8 +10,8 @@ AMateria::AMateria(const string &type) : type(type) {
 
 AMateria& AMateria::operator=(const AMateria &toCopy) {
 	cout << "AMateria: Copy assignment operator called" << endl;
-	if (*this != toCopy) {
-		*this->type = toCopy.type;
+	if (this != &toCopy) {
+		this->type = toCopy.type;
 	}
 	return *this;
 }
@@ -25,7 +25,7 @@ AMateria::~AMateria() {
 	cout << "AMateria: Destructor called" << endl;
 }
 
-string & AMateria::getType() const {
+string const & AMateria::getType() const {
 	return type;
 }
 

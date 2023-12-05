@@ -13,14 +13,14 @@ Character::Character(string name) : name(name) {
 
 Character& Character::operator=(const Character &toCopy) {
 	cout << "Character: Copy assignment operator called" << endl;
-	if (*this != toCopy) {
-		*this->name = toCopy.name;
+	if (this != &toCopy) {
+		this->name = toCopy.name;
 		for (int i = 0; i < 4; ++i) {
-			delete inventory[i];
-			if (toCopy.inventory[i])
-				this->inventory[i] = toCopy.inventory[i];
-			else
-				inventory[i] = NULL;
+			if (inventory[i]) {
+				delete inventory[i];
+				this->inventory[i] = NULL;
+			}
+			inventory[i] = toCopy.inventory[i]->clone();
 		}
 	}
 	return (*this);
@@ -29,11 +29,9 @@ Character& Character::operator=(const Character &toCopy) {
 Character::Character(const Character &toCopy) : name(toCopy.name){
 	cout << "Character: Copy constructor called" << endl;
 	for (int i = 0; i < 4; ++i) {
-		if (toCopy.inventory[i])
-			inventory[i] = toCopy.inventory[i]->clone();
-		else
-			inventory[i] = NULL;
+		inventory[i] = NULL;
 	}
+	*this = toCopy;
 }
 
 Character::~Character() {
@@ -58,7 +56,6 @@ void Character::equip(AMateria *m) {
 
 void Character::unequip(int idx) {
 	if (idx >= 0 && idx < 4) {
-		delete inventory[idx];
 		inventory[idx] = NULL;
 	}
 }

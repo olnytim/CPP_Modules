@@ -2,10 +2,12 @@
 #define MATERIASOURCE_HPP
 
 #include "AMateria.hpp"
+#include "IMateriaSource.hpp"
 
 class MateriaSource : public IMateriaSource {
 private:
-	vector<AMateria *> learnedMaterias;
+	AMateria	*learnedMaterias[4];
+	int	numLearnedMaterias;
 
 public:
 	MateriaSource();
