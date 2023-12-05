@@ -23,7 +23,7 @@ AMateria::AMateria(const AMateria &toCopy) {
 }
 
 AMateria::~AMateria() {
-	cout << "AMateria: Default destructor called" << endl;
+	cout << "AMateria: Destructor called" << endl;
 }
 
 string & AMateria::getType() const {
