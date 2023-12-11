@@ -25,6 +25,15 @@ public:
 	int		getGrade( void ) const;
 	void	incrementGrade( void );
 	void	decrementGrade( void );
+
+	class GradeTooHighException : public std::exception {
+	public:
+		virtual const char *what() const throw();
+	};
+	class GradeTooLowException : public std::exception {
+	public:
+		virtual const char *what() const throw();
+	};
 };
 
 std::ostream &operator<<( std::ostream &out, const Bureaucrat &toShow );

@@ -2,7 +2,13 @@
 
 Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {}
 
-Bureaucrat::Bureaucrat(string const &name, int grade) : _name(name), _grade(grade) {}
+Bureaucrat::Bureaucrat(string const &name, int grade) : _name(name) {
+	if (grade > 150)
+		throw Bureaucrat::GradeTooLowException();
+	else if (grade < 1)
+		throw  Bureaucrat::GradeTooHighException();
+	_grade = grade;
+}
 
 Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &toCopy) {
 	if (this != &toCopy)
@@ -29,10 +35,22 @@ std::ostream	&operator<<(std::ostream &out, const Bureaucrat &toShow) {
 	return out;
 }
 
-void	Bureaucrat::decrementGrade() {
+const char* Bureaucrat::GradeTooHighException::what() const throw() {
+	return ("Grade too high!");
+}
 
+const char* Bureaucrat::GradeTooLowException::what() const throw() {
+	return ("Grade too low!");
 }
 
 void	Bureaucrat::incrementGrade() {
-	
+	if (_grade - 1 < 1)
+		throw Bureaucrat::GradeTooHighException();
+	_grade--;
+}
+
+void	Bureaucrat::decrementGrade() {
+	if (_grade + 1 > 150)
+		throw Bureaucrat::GradeTooLowException();
+	_grade++;
 }
