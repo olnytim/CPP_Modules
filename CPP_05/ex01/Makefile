@@ -1,10 +1,10 @@
-NAME = bureaucrat2
+NAME = bureaucrat
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 
 PREF_OBJ = obj
-SRC = main.cpp Bureaucrat.cpp Form.hpp
+SRC = main.cpp Bureaucrat.cpp
 OBJ = $(patsubst %.cpp, $(PREF_OBJ)/%.o, $(SRC))
 HEADER = $(wildcard *.hpp)
 
