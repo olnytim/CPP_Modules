@@ -26,7 +26,7 @@ int	Bureaucrat::getGrade() const {
 	return _grade;
 }
 
-string const	&Bureaucrat::getName() const {
+const string	&Bureaucrat::getName() const {
 	return _name;
 }
 

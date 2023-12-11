@@ -26,7 +26,7 @@ int	Bureaucrat::getGrade() const {
 	return _grade;
 }
 
-string const	&Bureaucrat::getName() const {
+const string	&Bureaucrat::getName() const {
 	return _name;
 }
 
@@ -53,4 +53,14 @@ void	Bureaucrat::decrementGrade() {
 	if (_grade + 1 > 150)
 		throw Bureaucrat::GradeTooLowException();
 	_grade++;
+}
+
+void Bureaucrat::signForm(Form &toShow) {
+	try {
+		toShow.beSigned(*this);
+		cout << getName() << " signed " << toShow.getName() << endl;
+	}
+	catch (exception &except){
+		cout << getName() << " couldn't sign " << toShow.getName() << " because " << except.what() << "." << endl;
+	}
 }

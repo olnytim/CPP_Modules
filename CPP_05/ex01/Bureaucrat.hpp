@@ -4,14 +4,18 @@
 #include <string>
 #include <iostream>
 
+#include "Form.hpp"
+
 using	std::exception;
 using	std::string;
 using	std::cout;
 using	std::endl;
 
+class Form;
+
 class Bureaucrat {
 private:
-	string const	_name;
+	const string	_name;
 	int	_grade;
 
 public:
@@ -21,7 +25,7 @@ public:
 	Bureaucrat &operator =( const Bureaucrat &toCopy );
 	virtual ~Bureaucrat();
 
-	string const	&getName( void ) const;
+	const string	&getName( void ) const;
 	int		getGrade( void ) const;
 	void	incrementGrade( void );
 	void	decrementGrade( void );
@@ -34,6 +38,8 @@ public:
 	public:
 		virtual const char *what() const throw();
 	};
+
+	void	signForm( Form &toShow );
 };
 
 std::ostream &operator<<( std::ostream &out, const Bureaucrat &toShow );

@@ -11,7 +11,7 @@ using	std::endl;
 
 class Bureaucrat {
 private:
-	string const	_name;
+	const string	_name;
 	int	_grade;
 
 public:
@@ -21,7 +21,7 @@ public:
 	Bureaucrat &operator =( const Bureaucrat &toCopy );
 	virtual ~Bureaucrat();
 
-	string const	&getName( void ) const;
+	const string	&getName( void ) const;
 	int		getGrade( void ) const;
 	void	incrementGrade( void );
 	void	decrementGrade( void );
