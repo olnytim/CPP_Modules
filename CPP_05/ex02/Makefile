@@ -1,10 +1,10 @@
-NAME = phone_book
+NAME = bureaucrat3
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 
 PREF_OBJ = obj
-SRC = main.cpp PhoneBook.cpp Contact.cpp
+SRC = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 OBJ = $(patsubst %.cpp, $(PREF_OBJ)/%.o, $(SRC))
 HEADER = $(wildcard *.hpp)
 
@@ -14,6 +14,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 	@echo "$(NAME) file was created!"
+
 
 $(PREF_OBJ)/%.o: %.cpp $(HEADER) Makefile
 	@mkdir -p $(PREF_OBJ)

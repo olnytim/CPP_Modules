@@ -9,10 +9,14 @@ int main(void) {
 		cin >> request;
 		if (request == "ADD") {
 			Contact		contact;
-			contact.setContact();
+			int a = contact.setContact();
+			if (a) {
+				cout << endl << "Do not use CTRL + D!" << endl;
+				return 1;
+			}
 			if (!contact.isEmpty()) {
 				cout << "Contact was added!" << endl;
-				phonebook.contact_added(contact);
+				phonebook.contactAdd(contact);
 			}
 			else {
 				cout << "Contact can't contain empty fields!" << endl;

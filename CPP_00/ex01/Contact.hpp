@@ -12,12 +12,11 @@ using std::setw;
 using std::getline;
 
 class Contact {
-
 public:
 	Contact();
 	bool	isEmpty(void);
 	void	displayContact(void) const;
-	void	setContact(void);
+	int	setContact(void);
 	void	preloadContacts(Contact contact, int i) const;
 
 private:

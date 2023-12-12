@@ -4,15 +4,13 @@
 #include "Contact.hpp"
 
 class PhoneBook {
-
 public:
 	PhoneBook();
-	void	contact_added(const Contact &contact);
+	void	contactAdd(const Contact &contact);
 	void	displayContacts(void);
 	const Contact	*getContact(string index);
 
 private:
-
 	Contact	_contacts[8];
 	int	_contactsCounter;
 	int	_temp;

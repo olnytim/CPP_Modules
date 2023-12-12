@@ -22,22 +22,23 @@ string	Contact::_formattedOutput(const string text) const {
 	return (text);
 }
 
-void	Contact::setContact(void) {
+int	Contact::setContact(void) {
 	cout << endl << "Enter First name: ";
 	cin >> _firstName;
-	if (cin.eof()) return ;
+	if (cin.eof()) return 1;
 	cout << "Enter Last name: ";
 	cin >> _lastName;
-	if (cin.eof()) return ;
+	if (cin.eof()) return 1;
 	cout << "Enter Nickname: ";
 	cin >> _nickName;
-	if (cin.eof()) return ;
+	if (cin.eof()) return 1;
 	cout << "Enter Phone number: ";
 	cin >> _phoneNumber;
-	if (cin.eof()) return ;
+	if (cin.eof()) return 1;
 	cout << "Enter Darkest secret: ";
 	cin >> _darkestSecret;
-	if (cin.eof()) return ;
+	if (cin.eof()) return 1;
+	return 0;
 }
 
 void	Contact::preloadContacts(Contact contact, int i) const {
