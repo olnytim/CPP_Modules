@@ -33,6 +33,7 @@ public:
 
 	virtual void	beSigned( const Bureaucrat &toCheck );
 	virtual void	execute( const Bureaucrat &executor ) const = 0;
+	virtual AForm *clone( const string &target ) = 0;
 
 	class GradeTooLowException : public exception {
 	public:

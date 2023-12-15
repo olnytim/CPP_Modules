@@ -1,10 +1,10 @@
-NAME = bureaucrat3
+NAME = bureaucrat4
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 
 PREF_OBJ = obj
-SRC = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+SRC = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp
 OBJ = $(patsubst %.cpp, $(PREF_OBJ)/%.o, $(SRC))
 HEADER = $(wildcard *.hpp)
 

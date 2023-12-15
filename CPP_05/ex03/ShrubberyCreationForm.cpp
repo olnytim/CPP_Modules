@@ -70,3 +70,8 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
 			"   \\___________________________/" << endl;
 	fout.close();
 }
+
+AForm* ShrubberyCreationForm::clone(const string &target) {
+	AForm *temp = new ShrubberyCreationForm(target);
+	return temp;
+}

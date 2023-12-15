@@ -12,7 +12,12 @@ public:
 	RobotomyRequestForm &operator=( const RobotomyRequestForm &toCopy );
 	~RobotomyRequestForm();
 
+	AForm *clone( const string &target );
 	void	execute( const Bureaucrat &executor ) const;
+	class OpenFileException : public exception {
+	public:
+		virtual const char *what() const throw();
+	};
 };
 
 #endif

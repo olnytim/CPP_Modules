@@ -13,7 +13,8 @@ public:
 	~ShrubberyCreationForm();
 
 	void	execute( const Bureaucrat &executor ) const;
-	class OpenFileException : public std::exception {
+	AForm *clone( const string &target );
+	class OpenFileException : public exception {
 	public:
 		virtual const char *what() const throw();
 	};

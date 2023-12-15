@@ -8,6 +8,9 @@
 #include "AForm.hpp"
 
 class Intern {
+private:
+	AForm	*form[3];
+
 public:
 	Intern();
 	Intern( const Intern &toCopy );

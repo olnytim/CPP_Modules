@@ -29,3 +29,8 @@ void RobotomyRequestForm::execute(const Bureaucrat &executor) const {
 	else
 		cout << getTarget() << " the robotomy failed:(" << endl;
 }
+
+AForm* RobotomyRequestForm::clone(const string &target) {
+	AForm *temp = new RobotomyRequestForm(target);
+	return temp;
+}

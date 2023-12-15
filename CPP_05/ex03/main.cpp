@@ -58,8 +58,8 @@ int	main(void) {
 		cout << except.what() << endl;
 	}
 	{
-	Intern someRandomIntern;
-	AForm* rrf;
-	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+		Intern someRandomIntern;
+		AForm* rrf;
+		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
 	}
 }
