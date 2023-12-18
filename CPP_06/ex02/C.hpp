@@ -4,6 +4,11 @@
 #include "Base.hpp"
 
 class C : public Base {
+public:
+	C();
+	C( const C &toCopy );
+	C &operator=( const C &toCopy );
+	~C();
 
 };
 
