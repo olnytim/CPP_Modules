@@ -4,5 +4,9 @@
 #include "C.hpp"
 
 int	main(void) {
-	;
+	Base *c;
+	c = generate();
+	identify(c);
+	identify(*c);
+	delete c;
 }
