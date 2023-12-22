@@ -14,7 +14,6 @@ ScavTrap::~ScavTrap() {
 
 ScavTrap::ScavTrap(string name) : ClapTrap(name) {
 	cout << "ScavTrap: Name constructor called" << endl;
-	_name = "NoName";
 	_attack = 20;
 	_energy = 50;
 	_health = 100;

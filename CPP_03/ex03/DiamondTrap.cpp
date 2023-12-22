@@ -13,7 +13,7 @@ DiamondTrap::~DiamondTrap() {
 	cout << "DiamondTrap: Destructor called" << endl;
 }
 
-DiamondTrap::DiamondTrap(string name) : ClapTrap(name), ScavTrap(name), FragTrap(name) {
+DiamondTrap::DiamondTrap(string name) : ScavTrap(name), FragTrap(name) {
 	cout << "DiamondTrap: Name constructor called" << endl;
 	this->_name = name;
 	ClapTrap::_name = this->_name + "_clap_name";

@@ -8,7 +8,7 @@ int main() {
 	ClapTrap b("Ussop");
 	std::cout << std::endl;
 
-	ScavTrap c("Sanji");
+	ScavTrap c;
 	std::cout << std::endl;
 
 	a.attack(b.getName());

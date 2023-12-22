@@ -65,6 +65,7 @@
 		"fstream": "cpp",
 		"iomanip": "cpp",
 		"numbers": "cpp",
-		"sstream": "cpp"
+		"sstream": "cpp",
+		"filesystem": "cpp"
 	}
 }

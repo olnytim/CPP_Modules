@@ -1,7 +1,8 @@
 #ifndef CLAPTRAP_HPP
 #define CLAPTRAP_HPP
 
-
+#include <string>
+#include <iostream>
 
 using std::string;
 using std::endl;
