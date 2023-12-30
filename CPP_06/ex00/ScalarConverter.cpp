@@ -90,9 +90,8 @@ int	ScalarConverter::check_input_type(const string &userInput, size_t inputLengt
 		if (num > INT_MIN && num < INT_MAX)
 			return ScalarConverter::INT;
 	}
-	if (!f) {
+	if (!f)
 		return ScalarConverter::DOUBLE;
-	}
 	return ScalarConverter::FLOAT;
 }
 
