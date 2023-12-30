@@ -1,38 +1,57 @@
 #include "Array.hpp"
 
-Array<T>::Array() : _array(new T), _size(0) {}
+template <typename T>
+Array<T>::Array() : _array(nullptr), _size(0) {}
 
-Array<T>::Array(unsigned int n) : _array(new T[n]), _size(n) {}
+template <typename T>
+Array<T>::Array(unsigned int n) : _size(n) {
+	_array = new T[n];
+	for (unsigned int i = 0; i < n; ++i)
+		_array[i] = T();
+}
 
-Array<T>::Array( const Array &toCopy ) {
+template <typename T>
+Array<T>::Array( const Array &toCopy ) : _array(nullptr), _size(0) {
 	Array<T>::operator=(toCopy);
 }
 
-Array &Array<T>::operator=(const Array &toCopy) {
+template <typename T>
+Array<T> &Array<T>::operator=(const Array &toCopy) {
 	if (this != &toCopy) {
 		delete [] _array;
-		_array = new T[toCopy.getSize()];
-		_size = toCopy.getSize();
+		_array = new T[toCopy.size()];
+		_size = toCopy.size();
 		for (unsigned int i = 0; i < _size; ++i)
 			_array[i] = toCopy._array[i];
 	}
 	return *this;
 }
 
+template <typename T>
 Array<T>::~Array() {
     delete [] _array;
 }
 
-unsigned int Array<T>::getSize() {
+template <typename T>
+unsigned int Array<T>::size() const {
 	return _size;
 }
 
-T &Array<T>::operator[](unsigned int i) const {
+template <typename T>
+T &Array<T>::operator[](unsigned int i) {
     if (i >= _size)
         throw OutOfBoundsException();
     return _array[i];
 }
 
+template <typename T>
+const T &Array<T>::operator[](unsigned int i) const {
+	if (i >= _size)
+		throw OutOfBoundsException();
+	return _array[i];
+}
+
+template <typename T>
 const char *Array<T>::OutOfBoundsException::what() const throw() {
     return "Index is out of bounds";
 }

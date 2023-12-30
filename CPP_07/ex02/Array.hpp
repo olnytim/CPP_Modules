@@ -18,8 +18,9 @@ public:
 	Array &operator=( const Array &toCopy );
 	~Array();
 
-	unsigned int	getSize( void );
-    T &operator[](unsigned int i) const;
+	unsigned int	size( void ) const;
+	T &operator[](unsigned int i);
+	const T &operator[](unsigned int i) const;
     class OutOfBoundsException : public std::exception {
     public:
         virtual const char *what() const throw();

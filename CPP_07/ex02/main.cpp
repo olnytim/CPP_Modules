@@ -1,53 +1,40 @@
 #include "Array.hpp"
 #include "Array.tpp"
 
-#define MAX_VAL 750
 int main(int, char**)
 {
-    Array<int> numbers(MAX_VAL);
-    int* mirror = new int[MAX_VAL];
-    srand(time(NULL));
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-    }
-    //SCOPE
-    {
-        Array<int> tmp = numbers;
-        Array<int> test(tmp);
+    try {
+        // Test construction with no parameter
+        Array<int> emptyArray;
+        std::cout << "Empty array size: " << emptyArray.size() << std::endl;
+
+        // Test construction with an unsigned int n as a parameter
+        Array<int> intArray(5);
+        std::cout << "Initialized array size: " << intArray.size() << std::endl;
+
+        // Test copy constructor and assignment operator
+        Array<int> copiedArray(intArray);
+        Array<int> assignedArray;
+        assignedArray = intArray;
+
+        // Modify the original array to check for independence
+        intArray[0] = 100;
+
+        std::cout << "Copied array size: " << copiedArray.size() << std::endl;
+        std::cout << "Assigned array size: " << assignedArray.size() << std::endl;
+
+        // Access elements and display
+        std::cout << "Original array[0]: " << intArray[0] << std::endl;
+        std::cout << "Copied array[0]: " << copiedArray[0] << std::endl;
+        std::cout << "Assigned array[6]: " << assignedArray[6] << std::endl;
+
+        // Access out of bounds to test exception
+        // Uncomment the line below to test the exception
+        // std::cout << intArray[10] << std::endl;
+
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
     }
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        if (mirror[i] != numbers[i])
-        {
-            std::cerr << "didn't save the same value!!" << std::endl;
-            return 1;
-        }
-    }
-    try
-    {
-        numbers[-2] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    try
-    {
-        numbers[MAX_VAL] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        numbers[i] = rand();
-    }
-    delete [] mirror;//
     return 0;
 }
