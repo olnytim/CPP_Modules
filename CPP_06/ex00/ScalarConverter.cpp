@@ -85,12 +85,13 @@ int	ScalarConverter::check_input_type(const string &userInput, size_t inputLengt
 	bool f = userInput.find('f') != string::npos;
 	if (inputLength == 1 && !std::isdigit(userInput[0]))
 		return ScalarConverter::CHAR;
-	if (!f)
-		return ScalarConverter::DOUBLE;
 	if (inputLength <= 11 && !dot && !f) {
 		long num = std::atol(userInput.c_str());
 		if (num > INT_MIN && num < INT_MAX)
 			return ScalarConverter::INT;
+	}
+	if (!f) {
+		return ScalarConverter::DOUBLE;
 	}
 	return ScalarConverter::FLOAT;
 }
