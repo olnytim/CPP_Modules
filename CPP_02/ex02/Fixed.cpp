@@ -21,7 +21,7 @@ int Fixed::getRawBits() const {
 	return _value;
 }
 
-void Fixed::setRawBits(int const raw) {
+void Fixed::setRawBits(const int raw) {
 	_value = raw;
 }
 
@@ -121,8 +121,8 @@ Fixed Fixed::max(Fixed &num1, Fixed &num2) {
 }
 
 const Fixed	Fixed::min(const Fixed &num1, const Fixed &num2) {
-	if (num1 < num2)	return num2;
-	else	return num1;
+	if (num1 < num2)	return num1;
+	else	return num2;
 }
 
 const Fixed	Fixed::max(const Fixed &num1, const Fixed &num2) {

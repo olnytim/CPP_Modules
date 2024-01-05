@@ -1,7 +1,7 @@
 #ifndef HARL_HPP
 #define HARL_HPP
 
-
+#include <iostream>
 
 using std::string;
 using std::cout;

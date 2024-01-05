@@ -14,6 +14,14 @@ void MiniSed::openSourceFile(string filename) {
 		cerr << "Error opening file!" << endl;
 		exit(1);
 	}
+	string line;
+	while (std::getline(inputFile, line, '\0')) {}
+	if (line.empty()) {
+		cout << "Empty file!" << endl;
+		exit(1);
+	}
+	inputFile.close();
+	inputFile.open(filename);
 }
 
 void MiniSed::createNewFile() {
@@ -27,7 +35,7 @@ void MiniSed::createNewFile() {
 void MiniSed::readReplace() {
 	string line;
 	while (std::getline(inputFile, line)) {
-		string newLine;
+		string	newLine;
 		size_t	pos = 0;
 		while (pos < line.length()) {
 			size_t	found = line.find(_s1, pos);

@@ -13,17 +13,17 @@ private:
 	static const int	_fract_value = 8;
 public:
 	Fixed();
-	Fixed(const int value);
-	Fixed(const float value);
-	Fixed(const Fixed &toCopy);
-	Fixed &operator=(const Fixed &toCopy);
+	Fixed( const int value );
+	Fixed( const float value );
+	Fixed( const Fixed &toCopy );
+	Fixed &operator=( const Fixed &toCopy );
 	~Fixed();
 	float	toFloat( void ) const;
 	int		toInt( void ) const;
 	int		getRawBits( void ) const;
-	void	setRawBits(int const raw);
+	void	setRawBits( const int raw );
 };
 
-std::ostream &operator<<(std::ostream &out, const Fixed &toShow);
+std::ostream &operator<<( std::ostream &out, const Fixed &toShow );
 
 #endif

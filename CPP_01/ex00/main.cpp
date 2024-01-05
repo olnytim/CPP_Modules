@@ -1,5 +1,8 @@
 #include "Zombie.hpp"
 
+Zombie	*newZombie(string name);
+void	randomChump(string name);
+
 int	main(void) {
 	string name1;
 	cout << "Enter stack zombie name: ";

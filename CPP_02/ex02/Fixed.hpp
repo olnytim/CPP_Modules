@@ -34,7 +34,7 @@ public:
 	~Fixed();
 	int		toInt( void ) const;
 	int		getRawBits( void ) const;
-	void	setRawBits( int const raw );
+	void	setRawBits( const int raw );
 	float	toFloat( void ) const;
 	static Fixed		min( Fixed &num1, Fixed &num2 );
 	static Fixed		max( Fixed &num1, Fixed &num2 );
