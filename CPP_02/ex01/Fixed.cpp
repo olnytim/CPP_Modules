@@ -18,7 +18,7 @@ int Fixed::getRawBits() const {
 	return _value;
 }
 
-void Fixed::setRawBits(int const raw) {
+void Fixed::setRawBits(const int raw) {
 	_value = raw;
 }
 
@@ -28,12 +28,12 @@ Fixed& Fixed::operator=(const Fixed &toCopy) {
 	return *this;
 }
 
-Fixed::Fixed(int const value) {
+Fixed::Fixed(const int value) {
 	_value = value << _fract_value;
 	cout << "Int constructor called" << endl;
 }
 
-Fixed::Fixed(float const value) {
+Fixed::Fixed(const float value) {
 	_value = roundf(value * (1 << _fract_value));
 	cout << "Float constructor called" << endl;
 }

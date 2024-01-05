@@ -20,6 +20,8 @@ public:
 	Zombie(string name);
 	~Zombie(void);
 	void	announce(void);
+
+	void	setName( string name );
 };
 
 Zombie	*zombieHorde(int N, string name);

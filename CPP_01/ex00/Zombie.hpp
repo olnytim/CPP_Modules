@@ -20,7 +20,4 @@ public:
 	void	announce(void);
 };
 
-Zombie	*newZombie(string name);
-void	randomChump(string name);
-
-#endif ZOMBIE_H
+#endif

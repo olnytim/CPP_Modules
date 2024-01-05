@@ -3,16 +3,13 @@
 #include "DiamondTrap.hpp"
 
 int main() {
-
-
 	DiamondTrap e("lol");
-	std::cout << std::endl;
 
 	e.whoAmI();
-	std::cout << std::endl;
-	std::cout << e.getHealth() << std::endl;
-	std::cout << e.getEnergy() << std::endl;
-	std::cout << e.getAttack() << std::endl;
+	cout << endl;
+	cout << e.getHealth() << endl;
+	cout << e.getEnergy() << endl;
+	cout << e.getAttack() << endl;
 
 	return 0;
 }
