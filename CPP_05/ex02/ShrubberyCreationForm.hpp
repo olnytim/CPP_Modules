@@ -5,8 +5,8 @@
 #include "Bureaucrat.hpp"
 
 class ShrubberyCreationForm : public AForm {
-public:
 	ShrubberyCreationForm();
+public:
 	ShrubberyCreationForm( const string &target );
 	ShrubberyCreationForm( const ShrubberyCreationForm &toCopy );
 	ShrubberyCreationForm &operator= (const ShrubberyCreationForm &toCopy );

@@ -1,7 +1,6 @@
 #ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
 
-#include <string>
 #include <iostream>
 
 using	std::exception;
@@ -26,11 +25,11 @@ public:
 	void	incrementGrade( void );
 	void	decrementGrade( void );
 
-	class GradeTooHighException : public std::exception {
+	class GradeTooHighException : public exception {
 	public:
 		virtual const char *what() const throw();
 	};
-	class GradeTooLowException : public std::exception {
+	class GradeTooLowException : public exception {
 	public:
 		virtual const char *what() const throw();
 	};

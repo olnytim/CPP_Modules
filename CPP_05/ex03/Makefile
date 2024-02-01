@@ -34,6 +34,8 @@ clean:
 fclean: clean
 	@if [ -e $(NAME) ]; then \
 		rm -rf $(NAME); \
+		rm -rf Form1_shrubbery; \
+		rm -rf Shrubbery_shrubbery; \
 		echo "$(NAME) was deleted!"; \
 	fi
 

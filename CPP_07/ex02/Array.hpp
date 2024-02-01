@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
-//#include "Array.tpp"
 
 template <typename T>
 class Array {

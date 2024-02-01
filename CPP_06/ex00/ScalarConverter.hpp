@@ -1,41 +1,34 @@
 #ifndef SCALARCONVERTER_HPP
 #define SCALARCONVERTER_HPP
 
-#include <string>
 #include <iostream>
-#include <sstream>
+#include <string>
 #include <cmath>
+#include <iomanip>
 
-using std::string;
 using std::cout;
 using std::endl;
+using std::string;
 
-class ScalarConverter {
+enum {
+	NAN_INF,
+	ERROR,
+	CHAR,
+	INT,
+	FLOAT,
+	DOUBLE
+};
+
+class ScalarConverter
+{
 private:
 	ScalarConverter();
-	ScalarConverter( const ScalarConverter &toCopy );
-	ScalarConverter &operator=( const ScalarConverter &toCopy );
+	ScalarConverter( ScalarConverter const &other );
+	ScalarConverter &operator=( ScalarConverter const &other );
 	~ScalarConverter();
 
-	static void	convert_to_char( const string & );
-	static void	convert_to_int( const string & );
-	static void	convert_to_float( const string & );
-	static void	convert_to_double( const string & );
-	static int	check_input_type( const string &, size_t );
-	static void	print_char( char );
-	static void	print_int( int );
-	static void	print_float( float );
-	static void	print_double( double );
-
-	enum {
-		CHAR,
-		INT,
-		FLOAT,
-		DOUBLE
-	};
-
 public:
-	static void	convert( const string & );
+	static void convert( string const &input );
 };
 
 #endif

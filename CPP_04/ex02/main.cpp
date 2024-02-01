@@ -26,7 +26,13 @@ int main() {
 	cout << endl;
 
 	for (int i = 0; i < 4; i++)
-		i < 2 ? arr[i] = new Dog() : arr[i] = new Cat();
+	{
+		switch (i) {
+			case 0:		arr[i] = new Dog();
+			case 1:		arr[i] = new Dog();
+			default:	arr[i] = new Cat();
+		}
+	}
 
 	cout << endl;
 

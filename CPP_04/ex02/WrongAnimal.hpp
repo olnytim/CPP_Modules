@@ -1,7 +1,7 @@
 #ifndef WRONGANIMAL_HPP
 #define WRONGANIMAL_HPP
 
-
+#include <iostream>
 
 using std::string;
 using std::endl;

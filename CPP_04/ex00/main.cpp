@@ -3,46 +3,46 @@
 #include "WrongCat.hpp"
 
 int	main(void) {
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+	const Animal* animal = new Animal();
+	const Animal* dog = new Dog();
+	const Animal* cat = new Cat();
 
 	cout << std::endl;
 
-	cout << j->getType() << " " << endl;
-	cout << i->getType() << " " << endl;
+	cout << dog->getType() << endl;
+	cout << cat->getType() << endl;
 
 	cout << endl;
 
-	i->makeSound();
-	j->makeSound();
-	meta->makeSound();
+	cat->makeSound();
+	dog->makeSound();
+	animal->makeSound();
 
 	cout << endl;
 
-	delete meta;
-	delete j;
-	delete i;
+	delete animal;
+	delete dog;
+	delete cat;
 
 	cout << endl;
 
-	const WrongAnimal* meta2 = new WrongAnimal();
-	const WrongAnimal* j2 = new WrongCat();
+	const WrongAnimal* animal2 = new WrongAnimal();
+	const WrongAnimal* cat2 = new WrongCat();
 
 	cout << endl;
 
-	cout << meta2->getType() << endl;
-	cout << j2->getType() << endl;
+	cout << animal2->getType() << endl;
+	cout << cat2->getType() << endl;
 
 	cout << endl;
 
-	meta2->makeSound();
-	j2->makeSound();
+	animal2->makeSound();
+	cat2->makeSound();
 
 	cout << endl;
 
-	delete meta2;
-	delete j2;
+	delete animal2;
+	delete cat2;
 
 	return 0;;
 }

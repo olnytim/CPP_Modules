@@ -13,7 +13,7 @@ WrongCat::~WrongCat() {
 
 WrongCat& WrongCat::operator=(const WrongCat &toCopy) {
 	cout << "WrongCat: " << "Copy assignment operator called" << endl;
-	if (*this != toCopy) {
+	if (this != &toCopy) {
 		WrongAnimal::operator=(toCopy);
 		delete _brain;
 		_brain = new Brain();

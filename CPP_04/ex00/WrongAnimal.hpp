@@ -1,7 +1,7 @@
 #ifndef WRONGANIMAL_HPP
 #define WRONGANIMAL_HPP
 
-
+#include <iostream>
 
 using std::string;
 using std::endl;
@@ -17,7 +17,7 @@ public:
 	WrongAnimal( const WrongAnimal &toCopy );
 	WrongAnimal &operator=( const WrongAnimal &toCopy );
 
-	virtual void	makeSound( void ) const;
+	void	makeSound( void ) const;
 	void			setType( string const Type );
 	string			getType( void ) const;
 };

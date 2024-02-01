@@ -56,4 +56,8 @@ int	main(void) {
 	catch (exception &e) {
 		cout << e.what() << endl;
 	}
+	delete Shrubbery;
+	delete Robotomy;
+	delete Presidential;
+	return (0);
 }

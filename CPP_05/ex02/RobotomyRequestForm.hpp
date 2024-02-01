@@ -5,8 +5,8 @@
 #include "Bureaucrat.hpp"
 
 class RobotomyRequestForm : public AForm {
-public:
 	RobotomyRequestForm();
+public:
 	RobotomyRequestForm( const string &target );
 	RobotomyRequestForm( const RobotomyRequestForm &toCopy );
 	RobotomyRequestForm &operator=( const RobotomyRequestForm &toCopy );

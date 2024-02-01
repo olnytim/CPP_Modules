@@ -59,7 +59,12 @@ int	main(void) {
 	}
 	{
 		Intern someRandomIntern;
-		AForm* rrf;
+		AForm* rrf = NULL;
 		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+		delete rrf;
 	}
+	delete Shrubbery;
+	delete Robotomy;
+	delete Presidential;
+	return (0);
 }

@@ -10,7 +10,7 @@
 using	std::exception;
 using	std::string;
 using	std::cout;
-using	std::endl;
+using	endl;
 
 class AForm;
 

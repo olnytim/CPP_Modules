@@ -10,7 +10,7 @@ public:
 	WrongCat( const WrongCat &toCopy );
 	WrongCat &operator=( const WrongCat &toCopy );
 
-	virtual void	makeSound( void ) const;
+	void	makeSound( void ) const;
 };
 
 #endif

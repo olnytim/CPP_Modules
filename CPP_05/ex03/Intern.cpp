@@ -6,7 +6,11 @@ Intern::Intern() {
 	form[2] = new PresidentialPardonForm();
 }
 
-Intern::~Intern() {}
+Intern::~Intern() {
+	delete form[0];
+	delete form[1];
+	delete form[2];
+}
 
 Intern	&Intern::operator=(const Intern &toCopy) {
 	form[0] = toCopy.form[0];

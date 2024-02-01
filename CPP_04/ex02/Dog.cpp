@@ -13,7 +13,7 @@ Dog::~Dog() {
 
 Dog& Dog::operator=(const Dog &toCopy) {
 	cout << "Dog: " << "Copy assignment operator called" << endl;
-	if (*this != toCopy) {
+	if (this != &toCopy) {
 		Animal::operator=(toCopy);
 		delete _brain;
 		_brain = new Brain();

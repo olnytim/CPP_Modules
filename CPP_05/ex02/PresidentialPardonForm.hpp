@@ -5,8 +5,8 @@
 #include "Bureaucrat.hpp"
 
 class PresidentialPardonForm : public AForm {
-public:
 	PresidentialPardonForm();
+public:
 	PresidentialPardonForm( const string &target );
 	PresidentialPardonForm( const PresidentialPardonForm &toCopy );
 	PresidentialPardonForm &operator=( const PresidentialPardonForm &toCopy );
