@@ -8,14 +8,15 @@ using std::cout;
 using std::endl;
 
 class Serializer {
-public:
+private:
 	Serializer();
 	Serializer( const Serializer &toCopy );
 	Serializer &operator=( const Serializer &toCopy );
 	~Serializer();
 
-	static uintptr_t	serialize(Data *ptr);
-	static Data*	deserialize(uintptr_t raw);
+public:
+	static uintptr_t	serialize( Data *ptr );
+	static Data	*deserialize( uintptr_t raw );
 };
 
 #endif

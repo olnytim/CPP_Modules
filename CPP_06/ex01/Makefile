@@ -1,4 +1,4 @@
-NAME = converter2
+NAME = converter1
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++

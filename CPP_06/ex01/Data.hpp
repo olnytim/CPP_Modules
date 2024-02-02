@@ -14,7 +14,7 @@ public:
 	Data &operator=( const Data &toCopy );
 	~Data();
 
-	int	getDataValue() const ;
+	int	getDataValue() const;
 };
 
 #endif

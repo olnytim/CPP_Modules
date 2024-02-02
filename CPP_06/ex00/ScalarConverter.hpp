@@ -5,6 +5,7 @@
 #include <string>
 #include <cmath>
 #include <iomanip>
+#include <climits>
 
 using std::cout;
 using std::endl;
