@@ -5,6 +5,11 @@
 #include <string>
 #include <stdlib.h>
 
+using std::string;
+using std::endl;
+using std::cout;
+using std::cerr;
+
 template <typename T>
 class Array {
 private:
@@ -18,8 +23,8 @@ public:
 	~Array();
 
 	unsigned int	size( void ) const;
-	T &operator[](unsigned int i);
-	const T &operator[](unsigned int i) const;
+	T &operator[]( unsigned int i );
+	const T &operator[]( unsigned int i ) const;
     class OutOfBoundsException : public std::exception {
     public:
         virtual const char *what() const throw();

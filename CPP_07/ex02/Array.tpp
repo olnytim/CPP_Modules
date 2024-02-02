@@ -19,8 +19,8 @@ template <typename T>
 Array<T> &Array<T>::operator=(const Array &toCopy) {
 	if (this != &toCopy) {
 		delete [] _array;
-		_array = new T[toCopy.size()];
 		_size = toCopy.size();
+		_array = new T[toCopy.size()];
 		for (unsigned int i = 0; i < _size; ++i)
 			_array[i] = toCopy._array[i];
 	}

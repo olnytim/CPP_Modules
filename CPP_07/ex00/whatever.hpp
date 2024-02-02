@@ -4,6 +4,10 @@
 #include <iostream>
 #include <string>
 
+using std::string;
+using std::endl;
+using std::cout;
+
 template <typename T>
 void	swap( T &a, T &b ) {
 	T	temp;
