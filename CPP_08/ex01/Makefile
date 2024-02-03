@@ -26,7 +26,7 @@ $(PREF_OBJ)/%.o: %.cpp $(HEADER) Makefile
 	fi
 
 clean:
-	@if [ -d $(PREF_OBa) ]; then \
+	@if [ -d $(PREF_OBJ) ]; then \
 		rm -rf $(PREF_OBJ); \
 		echo "$(PREF_OBJ) was deleted!"; \
 	fi

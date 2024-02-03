@@ -4,7 +4,7 @@ FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 
 PREF_OBJ = obj
-SRC = main.cpp MutantStack.cpp
+SRC = main.cpp
 OBJ = $(patsubst %.cpp, $(PREF_OBJ)/%.o, $(SRC))
 HEADER = $(wildcard *.hpp)
 
@@ -26,7 +26,7 @@ $(PREF_OBJ)/%.o: %.cpp $(HEADER) Makefile
 	fi
 
 clean:
-	@if [ -d $(PREF_OBa) ]; then \
+	@if [ -d $(PREF_OBJ) ]; then \
 		rm -rf $(PREF_OBJ); \
 		echo "$(PREF_OBJ) was deleted!"; \
 	fi

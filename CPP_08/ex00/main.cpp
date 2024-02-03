@@ -1,13 +1,12 @@
-#include "easyfind.tpp"
 #include "easyfind.hpp"
 
 int	main( void ) {
-	std::vector<int> numbers;
+	std::vector<int> array;
 	for (int i = 0; i < 10; ++i)
-		numbers.push_back(i);
+		array.push_back(i);
 	try {
-		easyfind(numbers, 4);
-		easyfind(numbers, 11);
+		easyfind(array, 4);
+		easyfind(array, 10);
 	}
 	catch (std::exception &except) {
 		cout << except.what() << endl;

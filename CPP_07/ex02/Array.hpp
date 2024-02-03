@@ -34,4 +34,6 @@ public:
 template <typename T>
 std::ostream &operator<<( std:: ostream &out, const Array<T> &array );
 
+#include "Array.tpp"
+
 #endif
