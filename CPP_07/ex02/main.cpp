@@ -24,7 +24,8 @@ int main(int, char**)
 
 //        std::cout << intArray[10] << std::endl;
 
-    } catch (const std::exception& e) {
+    }
+    catch (const std::exception& e) {
         cerr << "Exception: " << e.what() << endl;
     }
 
