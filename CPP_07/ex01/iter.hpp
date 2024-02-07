@@ -8,17 +8,18 @@ using std::endl;
 using std::string;
 
 template <typename T>
-void	print_element(T &array) {
+void	print(const T &array) {
 	cout << array << endl;
 }
 
 template <typename T>
-void	increment(T &n) {
-	++n;
+void	iter(T *array, size_t length, void(*fn)(const T&)) {
+	for (size_t i = 0; i < length; ++i)
+		fn(array[i]);
 }
 
-template <typename T>
-void	iter(T *array, size_t length, void(*fn)(T&)) {
+template <typename T1, typename T2>
+void	iter(T1 *array, size_t length, void(*fn)(const T2&)) {
 	for (size_t i = 0; i < length; ++i)
 		fn(array[i]);
 }
