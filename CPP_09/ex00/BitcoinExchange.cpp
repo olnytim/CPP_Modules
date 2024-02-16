@@ -23,16 +23,19 @@ void BitcoinExchange::readData( const string &filename ) {
             std::istringstream iss(line);
             string date;
             double price;
-            cout << "Reading: " << line << endl;
-            cout << "iss: " << iss.str() << endl;
-            iss >> date >> price;
+            iss >> date;
+            iss.ignore(3);
+            iss >> price;
             data.push_back(std::make_pair(date, price));
         }
     }
 }
 
 void BitcoinExchange::printData() const {
-    for (auto &d : data) {
-        cout << d.first << " " << d.second << endl;
+    unsigned long i = 0;
+    while (i < data.size())
+    {
+        cout << data[i].first << " " << data[i].second << endl;
+        ++i;
     }
 }

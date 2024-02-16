@@ -18,7 +18,7 @@ using std::vector;
 
 class BitcoinExchange {
 private:
-    vector<std::pair<string, double>> data;
+    vector<std::pair<string, double> > data;
 
 public:
     BitcoinExchange();
