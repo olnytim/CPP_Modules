@@ -10,6 +10,7 @@
 #include <sstream>
 #include <iomanip>
 #include <utility>
+#include <ctime>
 
 using std::endl;
 using std::cout;
@@ -19,6 +20,9 @@ using std::vector;
 class BitcoinExchange {
 private:
     vector<std::pair<string, double> > data;
+    int year;
+    int month;
+    int day;
 
 public:
     BitcoinExchange();
@@ -26,8 +30,14 @@ public:
     BitcoinExchange( const BitcoinExchange &toCopy );
     BitcoinExchange &operator=( const BitcoinExchange &toCopy );
 
+    void getDateTime();
     void readData( const string &filename );
     void printData() const;
+
+    class InvalidInput: public std::exception {
+    public:
+        virtual const char* what() const throw();
+    };
 };
 
 #endif
