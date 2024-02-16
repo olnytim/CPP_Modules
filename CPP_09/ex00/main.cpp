@@ -7,7 +7,7 @@ int main(int ac, char **av)
             try {
                 BitcoinExchange exchange;
                 exchange.readData(av[1]);
-                exchange.printData();
+//                exchange.printData();
                 break;
             }
             catch (const std::exception &except) {

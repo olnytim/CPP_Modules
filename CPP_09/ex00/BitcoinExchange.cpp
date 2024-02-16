@@ -36,13 +36,14 @@ void BitcoinExchange::readData( const string &filename ) {
     getDateTime();
     if (file.is_open()) {
         string line;
+        int i = 0;
         while (std::getline(file, line)) {
-            std::istringstream iss(line);
+            std::istringstream iss(line); // not good
             string date;
             double price;
             iss >> date;
             iss.ignore(3);
-            iss >> price;
+            iss >> price; // fix it
             vector<string> check;
             std::istringstream tokenStream(date);
             string token;
@@ -55,11 +56,15 @@ void BitcoinExchange::readData( const string &filename ) {
                     int check_day = std::stoi(check[2]);
                     if (check_year >= 2009 && check_year <= year) {
                         if (check_year == year) {
-                            if (check_month > month)
-                                throw InvalidDate();
+                            if (check_month > month) {
+								cout << "Error: no one knows about the future of Bitcoin =>" << date << endl;
+								continue;
+                            }
                             else if (check_month == month) {
-                                if (check_day > day)
-                                    throw InvalidDate();
+                                if (check_day > day) {
+									cout << "Error: no one knows about the future of Bitcoin =>" << date << endl;
+									continue;
+								}
                             }
                         }
                         switch (check_month) {
@@ -69,15 +74,25 @@ void BitcoinExchange::readData( const string &filename ) {
                             case 7:
                             case 8:
                             case 10:
-                            case 12:
-                                if (check_day >= 1 && check_day <= 31)
-                                    break;
+                            case 12: {
+								if (check_day >= 1 && check_day <= 31)
+									break;
+								else {
+									cout << "Error: bad input => " << date << endl;
+									continue;
+								}
+							}
                             case 4:
                             case 6:
                             case 9:
-                            case 11:
-                                if (check_day >= 1 && check_day <= 30)
-                                    break;
+                            case 11: {
+								if (check_day >= 1 && check_day <= 30)
+									break;
+								else {
+									cout << "Error: bad input => " << date << endl;
+									continue;
+								}
+							}
                             case 2: {
                                 if (check_year % 4 == 0) {
                                     if (check_day >= 1 && check_day <= 29)
@@ -85,18 +100,33 @@ void BitcoinExchange::readData( const string &filename ) {
                                 }
                                 else if (check_day >= 1 && check_day <= 28)
                                     break;
+                                else {
+									cout << "Error: bad input => " << date << endl;
+									continue;
+                                }
                             }
                             default:
-                                throw InvalidDate();
+								cout << "Error: bad input => " << date << endl;
+								continue;
                         }
-                    }
-                    data.push_back(std::make_pair(date, price));
+						data.push_back(std::make_pair(date, price));
+					}
+					else {
+						cout << "Error: bad input => " << date << endl;
+						continue;
+					}
                 }
-                else
-                    throw InvalidDate();
+                else {
+					cout << "Error: not a positive number." << endl;
+					continue;
+                }
             }
-            else
-                throw InvalidValue();
+            else {
+				cout << "Error: bad input => " << date << endl;
+				continue;
+            }
+			cout << data[i].first << " " << data[i].second << endl;
+			++i;
         }
     }
 }
