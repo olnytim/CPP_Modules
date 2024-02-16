@@ -1,27 +1,21 @@
 #include "MutantStack.hpp"
 
 template <typename T, typename Container>
-MutantStack<T, Container>::MutantStack() {
-	cout << "*MutantStack Constructor*" << endl;
-}
+MutantStack<T, Container>::MutantStack() {}
 
 template <typename T, typename Container>
 MutantStack<T, Container>::MutantStack(const MutantStack<T, Container> &toCopy) {
-	cout << "*MutantStack Copy Constructor*" << endl;
 	MutantStack::operator=(toCopy);
 }
 
 template <typename T, typename Container>
 MutantStack<T, Container> &MutantStack<T, Container>::operator=(const MutantStack<T, Container> &toCopy) {
-	cout << "*MutantStack Assignment Operator*" << endl;
 	std::stack<T, Container>::operator=(toCopy);
 	return *this;
 }
 
 template <typename T, typename Container>
-MutantStack<T, Container>::~MutantStack() {
-	cout << "*MutantStack Destructor*" << endl;
-}
+MutantStack<T, Container>::~MutantStack() {}
 
 template <typename T, typename Container>
 typename MutantStack<T, Container>::iterator MutantStack<T, Container>::begin() {

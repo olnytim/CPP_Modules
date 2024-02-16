@@ -1,11 +1,15 @@
-#include "RNP.hpp"
+#include "RPN.hpp"
 
 int main(int ac, char **av) {
     switch (ac) {
         case 2: {
-            RNP rnp;
-            rnp.parse(av[1]);
-            rnp.polish();
+            try {
+                RNP rnp;
+                rnp.parse(av[1]);
+            }
+            catch (const std::exception &except){
+                cout << except.what() << endl;
+            }
             break;
         }
         default:

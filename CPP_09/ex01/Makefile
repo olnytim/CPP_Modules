@@ -1,4 +1,4 @@
-NAME = RNP
+NAME = RPN
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++

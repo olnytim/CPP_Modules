@@ -6,9 +6,9 @@ int main()
 		MutantStack<int> mstack;
 		mstack.push(5);
 		mstack.push(17);
-		std::cout << mstack.top() << std::endl;
+		cout << mstack.top() << endl;
 		mstack.pop();
-		std::cout << mstack.size() << std::endl;
+		cout << mstack.size() << endl;
 		mstack.push(3);
 		mstack.push(5);
 		mstack.push(737);
@@ -19,7 +19,7 @@ int main()
 		--it;
 		while (it != ite)
 		{
-			std::cout << *it << std::endl;
+			cout << *it << endl;
 			++it;
 		}
 		std::stack<int> s(mstack);
@@ -31,18 +31,18 @@ int main()
 		mystack.push(2);
 		mystack.push(1);
 		MutantStack<int> stk(mystack);
-		std::cout << stk.top() << std::endl;
+		cout << stk.top() << endl;
 
-		std::cout << "Forward traversal:" << std::endl;
+		cout << "Forward traversal:" << endl;
 		for (MutantStack<int>::const_iterator it = mystack.begin(); it != mystack.end(); ++it) {
-			std::cout << *it << " ";
+			cout << *it << " ";
 		}
-		std::cout << std::endl;
+		cout << endl;
 
-		std::cout << "Reverse traversal:" << std::endl;
+		cout << "Reverse traversal:" << endl;
 		for (MutantStack<int>::reverse_iterator rit = mystack.rbegin(); rit != mystack.rend(); ++rit) {
-			std::cout << *rit << " ";
+			cout << *rit << " ";
 		}
-		std::cout << std::endl;
+		cout << endl;
 	}
 }

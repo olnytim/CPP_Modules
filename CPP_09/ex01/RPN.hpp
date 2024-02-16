@@ -12,8 +12,7 @@ using std::stack;
 
 class RNP {
 private:
-    stack<char> operators;
-    stack<double> operands;
+    stack<int> operands;
 
 public:
     RNP();
@@ -22,7 +21,7 @@ public:
     ~RNP();
 
     void parse( const string &expression );
-    void polish( void );
+    void polish( const char &op );
     class InvalidExpression: public std::exception {
     public:
         virtual const char *what() const throw();

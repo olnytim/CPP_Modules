@@ -1,4 +1,4 @@
-#include "RNP.hpp"
+#include "RPN.hpp"
 
 RNP::RNP() {}
 
@@ -17,48 +17,47 @@ RNP::~RNP() {}
 
 void RNP::parse( const string &expression ) {
     for (size_t i = 0; i < expression.size(); ++i) {
-        if (isdigit(expression[i]) && expression[i] == ' ')
+        if (isdigit(expression[i]) && (expression[i + 1] == ' ' || expression[i + 1] == '\0'))
             operands.push(expression[i] - '0');
-        else if ((expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/') && expression[i] == ' ')
-            operators.push(expression[i]);
+        else if ((expression[i] == '+' || expression[i] == '-' || expression[i] == '*'
+                || expression[i] == '/') && (expression[i + 1] == ' ' || expression[i + 1] == '\0'))
+            polish(expression[i]);
         else if (expression[i] == ' ')
             continue;
         else
             throw InvalidExpression();
     }
-    if (operators.size() != operands.size() - 1)
+    if (operands.size() != 1)
         throw InvalidExpression();
+    cout << operands.top() << endl;
+    operands.pop();
 }
 
 const char *RNP::InvalidExpression::what() const throw() {
     return "Error";
 }
 
-void RNP::polish() {
-    while (true) {
-        char op = operators.top();
-        operators.pop();
-        double op1 = operands.top();
+void RNP::polish(const char &op) {
+    if (operands.size() > 1) {
+        int op1 = operands.top();
         operands.pop();
-        double op2 = operands.top();
+        int op2 = operands.top();
         operands.pop();
         switch (op) {
             case '+':
-                operands.push(op1 + op2);
+                operands.push(op2 + op1);
                 break;
             case '-':
-                operands.push(op1 - op2);
+                operands.push(op2 - op1);
                 break;
             case '*':
-                operands.push(op1 * op2);
+                operands.push(op2 * op1);
                 break;
             case '/':
-                operands.push(op1 / op2);
+                operands.push(op2 / op1);
                 break;
         }
-        if (operators.empty() || operands.empty())
-            break;
     }
-    cout << operands.top() << endl;
-    operands.pop();
+    else
+        throw InvalidExpression();
 }
