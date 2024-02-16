@@ -34,10 +34,14 @@ public:
     void readData( const string &filename );
     void printData() const;
 
-    class InvalidInput: public std::exception {
+    class InvalidDate: public std::exception {
     public:
         virtual const char* what() const throw();
     };
+	class InvalidValue: public std::exception {
+	public:
+		virtual const char* what() const throw();
+	};
 };
 
 #endif

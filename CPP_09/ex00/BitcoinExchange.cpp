@@ -15,29 +15,12 @@ BitcoinExchange &BitcoinExchange::operator=( const BitcoinExchange &toCopy ) {
     return *this;
 }
 
-const char *BitcoinExchange::InvalidInput::what() const throw() {
-    return "Invalid input";
+const char *BitcoinExchange::InvalidDate::what() const throw() {
+    return "Invalid Date";
 }
 
-char **string.split(char delimeter) {
-    char **arr = new char*[3];
-    int i = 0, j = 0, k = 0;
-    while (i < length) {
-        if (str[i] == delimeter) {
-            arr[j] = new char[i - k + 1];
-            for (int l = k; l < i; ++l)
-                arr[j][l - k] = str[l];
-            arr[j][i - k] = '\0';
-            k = i + 1;
-            ++j;
-        }
-        ++i;
-    }
-    arr[j] = new char[i - k + 1];
-    for (int l = k; l < i; ++l)
-        arr[j][l - k] = str[l];
-    arr[j][i - k] = '\0';
-    return arr;
+const char *BitcoinExchange::InvalidValue::what() const throw() {
+	return "Invalid Value";
 }
 
 void BitcoinExchange::getDateTime() {
@@ -50,6 +33,7 @@ void BitcoinExchange::getDateTime() {
 
 void BitcoinExchange::readData( const string &filename ) {
     std::ifstream file(filename);
+    getDateTime();
     if (file.is_open()) {
         string line;
         while (std::getline(file, line)) {
@@ -59,49 +43,60 @@ void BitcoinExchange::readData( const string &filename ) {
             iss >> date;
             iss.ignore(3);
             iss >> price;
-            char ** check = date.split('-');
-            if (check[0].length() == 4 && check[1].length() == 2 && check[2].length() == 2 && (price >= 0 && price <= 1000)) {
-                if (check[0] >= 2009 && check[0] <= year) {
-                    if (check[0] == year) {
-                        if (check[1] > month)
-                            throw InvalidInput();
-                        else if (check[1] == month)
-                            if (check[2] > day)
-                                throw InvalidInput();
-                    }
-                    switch (check[1]) {
-                        case 1:
-                        case 3:
-                        case 5:
-                        case 7:
-                        case 8:
-                        case 10:
-                        case 12:
-                            if (check[2] >= 1 && check[2] <= 31)
-                                break;
-                        case 4:
-                        case 6:
-                        case 9:
-                        case 11:
-                            if (check[2] >= 1 && check[2] <= 30)
-                                break;
-                        case 2:
-                            if (check[0] % 4 == 0)
-                                if (check[2] >= 1 && check[2] <= 29)
+            vector<string> check;
+            std::istringstream tokenStream(date);
+            string token;
+            while (std::getline(tokenStream, token, '-'))
+            	check.push_back(token);
+            if (check[0].length() == 4 && check[1].length() == 2 && check[2].length() == 2) {
+                if (price >= 0 && price <= 1000) {
+                    int check_year = std::stoi(check[0]);
+                    int check_month = std::stoi(check[1]);
+                    int check_day = std::stoi(check[2]);
+                    if (check_year >= 2009 && check_year <= year) {
+                        if (check_year == year) {
+                            if (check_month > month)
+                                throw InvalidDate();
+                            else if (check_month == month) {
+                                if (check_day > day)
+                                    throw InvalidDate();
+                            }
+                        }
+                        switch (check_month) {
+                            case 1:
+                            case 3:
+                            case 5:
+                            case 7:
+                            case 8:
+                            case 10:
+                            case 12:
+                                if (check_day >= 1 && check_day <= 31)
                                     break;
-                            else
-                                if (check[2] >= 1 && check[2] <= 28)
+                            case 4:
+                            case 6:
+                            case 9:
+                            case 11:
+                                if (check_day >= 1 && check_day <= 30)
                                     break;
-                        default:
-                            throw InvalidInput();
+                            case 2: {
+                                if (check_year % 4 == 0) {
+                                    if (check_day >= 1 && check_day <= 29)
+                                        break;
+                                }
+                                else if (check_day >= 1 && check_day <= 28)
+                                    break;
+                            }
+                            default:
+                                throw InvalidDate();
+                        }
                     }
                     data.push_back(std::make_pair(date, price));
                 }
                 else
-                    throw InvalidInput();
+                    throw InvalidDate();
             }
             else
-                throw InvalidInput();
+                throw InvalidValue();
         }
     }
 }
