@@ -20,6 +20,8 @@ using std::vector;
 class BitcoinExchange {
 private:
     vector<std::pair<string, double> > data;
+    double value;
+    string date;
     int year;
     int month;
     int day;
@@ -30,6 +32,7 @@ public:
     BitcoinExchange( const BitcoinExchange &toCopy );
     BitcoinExchange &operator=( const BitcoinExchange &toCopy );
 
+    void parseData( const string &line );
     void getDateTime();
     void readData( const string &filename );
     void printData() const;
