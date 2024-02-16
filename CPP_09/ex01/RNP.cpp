@@ -17,9 +17,9 @@ RNP::~RNP() {}
 
 void RNP::parse( const string &expression ) {
     for (size_t i = 0; i < expression.size(); ++i) {
-        if (isdigit(expression[i]))
+        if (isdigit(expression[i]) && expression[i] == ' ')
             operands.push(expression[i] - '0');
-        else if (expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/')
+        else if ((expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/') && expression[i] == ' ')
             operators.push(expression[i]);
         else if (expression[i] == ' ')
             continue;
