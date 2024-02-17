@@ -8,7 +8,6 @@ int main(int ac, char **av)
                 BitcoinExchange exchange;
                 exchange.readData(av[1]);
 //                exchange.printData();
-                break;
             }
             catch (const std::exception &except) {
                 cout << except.what() << endl;

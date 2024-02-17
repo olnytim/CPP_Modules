@@ -1,8 +1,12 @@
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange() {}
+BitcoinExchange::BitcoinExchange() : year(2009), month(01), day(01) {
 
-BitcoinExchange::~BitcoinExchange() {}
+}
+
+BitcoinExchange::~BitcoinExchange() {
+	data.clear();
+}
 
 BitcoinExchange::BitcoinExchange( const BitcoinExchange &toCopy ) {
     data = toCopy.data;
@@ -31,25 +35,21 @@ void BitcoinExchange::getDateTime() {
     day = ltm->tm_mday;
 }
 
-void BitcoinExchange::parseData(const string &line) {
-    string temp;
-    for (size_t i = 0; i < line.length(); ++i) {
-        while (line[i] == ' ')
-            ++i;
-        while (line[i] != ' ')
-            date += line[i++];
-        while (line[i] == ' ')
-            ++i;
-        if (line[i] == '|') {
-            ++i;
-            while (line[i] == ' ')
-                ++i;
-            while (line[i] != ' ')
-                temp += line[i++];
-            break;
-        }
-    }
-    value = std::stod(temp);
+void BitcoinExchange::parseString(const string &line, string &value, string &date) {
+	size_t	i = 0;
+	while (line[i] == ' ')
+		++i;
+	while (line[i] != ' ')
+		date += line[i++];
+	while (line[i] == ' ')
+		++i;
+	if (line[i] == '|') {
+		++i;
+		while (line[i] == ' ')
+			++i;
+		while (line[i] != ' ')
+			value += line[i++];
+	}
 }
 
 void BitcoinExchange::readData( const string &filename ) {
@@ -57,19 +57,19 @@ void BitcoinExchange::readData( const string &filename ) {
     getDateTime();
     if (file.is_open()) {
         string line;
-        int i = 0;
         while (std::getline(file, line)) {
-//            std::istringstream iss(line); // fix it
-//            string date;
-//            double price;
-//            iss >> date;
-//            iss.ignore(3);
-//            iss >> price; // fix it
-            parseData(line);
-//            string date;
-//            double price;
-//            std::istringstream iss(line);
-//            cout << "line: " << iss.str() << endl;
+			std::istringstream iss(line);
+			string value = "";
+			string date = "";
+			double price;
+			parseString(iss.str(), value, date);
+			if (value != "") {
+				price = std::stod(value);
+			}
+			else {
+				cout << "Error: bad input => empty value" << endl;
+				continue;
+			}
             vector<string> check;
             std::istringstream tokenStream(date);
             string token;
@@ -135,7 +135,7 @@ void BitcoinExchange::readData( const string &filename ) {
 								cout << "Error: bad input => " << date << endl;
 								continue;
                         }
-						data.push_back(std::make_pair(date, value));
+						data.push_back(std::make_pair(date, price));
 					}
 					else {
 						cout << "Error: bad input => " << date << endl;
@@ -151,8 +151,8 @@ void BitcoinExchange::readData( const string &filename ) {
 				cout << "Error: bad input => " << date << endl;
 				continue;
             }
-			cout << data[i].first << " " << data[i].second << endl;
-			++i;
+			cout << date << " " << price << endl;
+            check.clear();
         }
     }
 }
