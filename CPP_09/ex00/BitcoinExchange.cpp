@@ -133,6 +133,9 @@ void BitcoinExchange::readData(const string filename) {
     bool firstString = false;
     std::string line;
     vector<string> vectorLine;
+
+    // check first line here
+
     while (std::getline(file, line)) {
         if (!firstString) {
             firstString = true;
@@ -143,13 +146,20 @@ void BitcoinExchange::readData(const string filename) {
             throwException(FORMAT_ERROR, line);
             continue;
         }
-        map<string, float>::iterator it = data.upper_bound(trim(vectorLine[0]));
+        cout << vectorLine[1] << "hello" << endl;
+        map<string, float>::iterator it = data.lower_bound(trim(vectorLine[0]));
         if (it != data.end()) {
-            std::pair<string, float> pair = *(--it);
+            if (it == data.begin()) {
+                it = data.end();
+                --it;
+            }
+            std::pair<string, float> pair = *it;
+            cout << "here: " << pair.first << " " << pair.second << endl;
             double value;
             try {
                 std::istringstream iss(vectorLine[1]);
                 iss >> value;
+                cout << "value: " << pair.second << endl;
                 if (value > 1000) {
                     throwException(BIG_VALUE, vectorLine[1]);
                     continue;
@@ -158,13 +168,14 @@ void BitcoinExchange::readData(const string filename) {
                     throwException(NEGATIVE_VALUE, vectorLine[1]);
                     continue;
                 }
-                cout << vectorLine[0] << " => " << vectorLine[1] << " => " << value * pair.second << endl;
+                cout << pair.first << " => " << vectorLine[1] << " => " << value * pair.second << endl;
             }
             catch (const std::invalid_argument &except) {
                 throwException(INVALID_VALUE, vectorLine[1]);
                 continue;
             }
         }
+        cout << endl;
     }
     file.close();
 }
