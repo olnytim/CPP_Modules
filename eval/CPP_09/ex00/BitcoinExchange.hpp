@@ -42,10 +42,12 @@ public:
     BitcoinExchange( const BitcoinExchange &toCopy );
     BitcoinExchange &operator=( const BitcoinExchange &toCopy );
 
-	void getDateTime();
     map<string, float> &getData();
-    void readData( const string filename );
     void setData( const string &date, float value );
+    void outputMap( string data );
+    void getDateTime();
+    bool loop( string line );
+    void readData( const string filename );
     vector<string> ft_split(const string &str, char sep);
     void throwException( Cases key, const string &str );
 };

@@ -98,7 +98,7 @@ map<string, float> &BitcoinExchange::getData() {
     return data;
 }
 
-vector<string> BitcoinExchange::ft_split(const string &str, char sep) {
+vector<string> BitcoinExchange::ft_split(const std::string &str, char sep) {
     vector<string> result;
     string item = "";
     for (size_t i = 0; i < str.size(); i++) {
@@ -113,61 +113,63 @@ vector<string> BitcoinExchange::ft_split(const string &str, char sep) {
     return result;
 }
 
-static void showMap(map<string, float> &data) {
-    for (map<string, float>::iterator it = data.begin(); it != data.end(); ++it) {
-        cout << it->first << " => " << it->second << endl;
+void BitcoinExchange::outputMap(string date) {
+    map<string, float>::iterator it = data.begin();
+    if (data.find(date) != data.end())
+        cout << date << " => " << value << " = " << value * data[date] << endl;
+    else {
+        it = data.lower_bound(date);
+        if (it == data.begin()) {
+            it = data.end();
+            --it;
+        }
+        else
+            --it;
+        cout << date << " => " << value << " = " << value * it->second << endl;
     }
+}
+
+bool BitcoinExchange::loop(string line) {
+    vector<string> vectorLine = ft_split(line, '|');
+    if (vectorLine[1].length() == 0 || vectorLine.size() != 2) {
+        throwException(FORMAT_ERROR, line);
+        return false;
+    }
+    string date = trim(vectorLine[0]);
+    try {
+        std::istringstream iss(vectorLine[1]);
+        iss >> value;
+        if (value > 1000) {
+            throwException(BIG_VALUE, vectorLine[1]);
+            return false;
+        } else if (value < 0) {
+            throwException(NEGATIVE_VALUE, vectorLine[1]);
+            return false;
+        }
+    }
+    catch (const std::invalid_argument &except) {
+        throwException(INVALID_VALUE, vectorLine[1]);
+        return false;
+    }
+    outputMap(date);
+    return true;
 }
 
 void BitcoinExchange::readData(const string filename) {
     std::ifstream file(filename.c_str());
-    if (!file.is_open()) {
-        throwException(INVALID_DATE, filename);
-        return ;
-    }
-    std::string line;
-    vector<string> vectorLine;
-    std::getline(file, line);
-    if (line != "date | value") {
-        throwException(FORMAT_ERROR, line);
-        return ;
-    }
-    while (std::getline(file, line)) {
-        vectorLine = ft_split(line, '|');
-        if (vectorLine[1].length() == 0 || vectorLine.size() != 2) {
+    if (file.is_open()) {
+        string line;
+        vector<string> vectorLine;
+        std::getline(file, line);
+        if (line == "date | value") {
+            while (std::getline(file, line))
+                if (!loop(line))
+                    continue;
+        }
+        else
             throwException(FORMAT_ERROR, line);
-            continue;
-        }
-        string date = trim(vectorLine[0]);
-        try {
-            std::istringstream iss(vectorLine[1]);
-            iss >> value;
-            if (value > 1000) {
-                throwException(BIG_VALUE, vectorLine[1]);
-                continue;
-            } else if (value < 0) {
-                throwException(NEGATIVE_VALUE, vectorLine[1]);
-                continue;
-            }
-        }
-        catch (const std::invalid_argument &except) {
-            throwException(INVALID_VALUE, vectorLine[1]);
-            continue;
-        }
-        map<string, float>::iterator it = data.begin();
-        if (data.find(date) != data.end()) {
-            cout << date << " => " << value << " = " << value * data[date] << endl;
-        }
-        else {
-            it = data.lower_bound(date);
-            if (it == data.begin()) {
-                it = data.end();
-                --it;
-            }
-            else
-                --it;
-            cout << date << " => " << value << " = " << value * it->second << endl;
-        }
+        file.close();
     }
-    file.close();
+    else
+        throwException(INVALID_DATE, filename);
 }
