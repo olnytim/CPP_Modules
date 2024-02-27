@@ -2,7 +2,7 @@
 
 BitcoinExchange::BitcoinExchange() : year(2009), month(01), day(01) {
     flag = 0;
-    std::ifstream file("../../CPP_09/ex00/data.csv");
+    std::ifstream file("../CPP_09/ex00/data.csv");
     if (!file.is_open()) {
         throwException(INVALID_DATE, "data.csv");
     }
