@@ -2,7 +2,8 @@
 
 BitcoinExchange::BitcoinExchange() : year(2009), month(01), day(01) {
     flag = 0;
-    std::ifstream file("../CPP_09/ex00/data.csv");
+//    std::ifstream file("../CPP_09/ex00/data.csv");
+    std::ifstream file("data.csv");
     if (!file.is_open()) {
         throwException(INVALID_DATE, "data.csv");
     }
@@ -98,6 +99,10 @@ map<string, float> &BitcoinExchange::getData() {
     return data;
 }
 
+void BitcoinExchange::checkDate(const string &date) {
+
+}
+
 vector<string> BitcoinExchange::ft_split(const std::string &str, char sep) {
     vector<string> result;
     string item = "";
@@ -136,6 +141,7 @@ bool BitcoinExchange::loop(string line) {
         return false;
     }
     string date = trim(vectorLine[0]);
+
     try {
         std::istringstream iss(vectorLine[1]);
         iss >> value;
@@ -155,19 +161,23 @@ bool BitcoinExchange::loop(string line) {
     return true;
 }
 
+void BitcoinExchange::niceCode(std::ifstream &file) {
+    string line;
+    vector<string> vectorLine;
+    std::getline(file, line);
+    if (line == "date | value") {
+        while (std::getline(file, line))
+            if (!loop(line))
+                continue;
+    }
+    else
+        throwException(FORMAT_ERROR, line);
+}
+
 void BitcoinExchange::readData(const string filename) {
     std::ifstream file(filename.c_str());
     if (file.is_open()) {
-        string line;
-        vector<string> vectorLine;
-        std::getline(file, line);
-        if (line == "date | value") {
-            while (std::getline(file, line))
-                if (!loop(line))
-                    continue;
-        }
-        else
-            throwException(FORMAT_ERROR, line);
+        niceCode(file);
         file.close();
     }
     else

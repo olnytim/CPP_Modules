@@ -50,6 +50,7 @@ public:
     void readData( const string filename );
     vector<string> ft_split(const string &str, char sep);
     void throwException( Cases key, const string &str );
+	void niceCode(std::ifstream &file);
 };
 
 #endif
