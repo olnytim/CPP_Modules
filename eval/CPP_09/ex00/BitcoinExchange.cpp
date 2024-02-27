@@ -1,8 +1,10 @@
+#include <cstdlib>
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange() : year(2009), month(01), day(01) {
     flag = 0;
     std::ifstream file("../CPP_09/ex00/data.csv");
+//    std::ifstream file("data.csv");
     if (!file.is_open()) {
         throwException(INVALID_DATE, "data.csv");
     }
@@ -71,9 +73,9 @@ void BitcoinExchange::throwException(BitcoinExchange::Cases key, const std::stri
 void BitcoinExchange::getDateTime() {
     time_t now = time(0);
     tm *ltm = localtime(&now);
-    year = ltm->tm_year + 1900;
-    month = ltm->tm_mon + 1;
-    day = ltm->tm_mday;
+    cur_year = ltm->tm_year + 1900;
+    cur_month = ltm->tm_mon + 1;
+    cur_day = ltm->tm_mday;
 }
 
 static string &leftTrim(string &str) {
@@ -96,6 +98,47 @@ void BitcoinExchange::setData(const std::string &date, float val) {
 
 map<string, float> &BitcoinExchange::getData() {
     return data;
+}
+
+bool BitcoinExchange::checkDate(const string &date) {
+    getDateTime();
+    vector<string> vectorDate = ft_split(date, '-');
+    if (vectorDate.size() != 3)
+        return false;
+    try {
+        std::istringstream iss(vectorDate[0]);
+        iss >> year;
+        std::istringstream iss1(vectorDate[1]);
+        iss1 >> month;
+        std::istringstream iss2(vectorDate[2]);
+        iss2 >> day;
+    }
+    catch (const std::invalid_argument &except) {
+        return false;
+    }
+    for (size_t i = 0; i < vectorDate.size(); i++) {
+        for (size_t j = 0; j < vectorDate[i].size(); j++) {
+            if (isdigit(vectorDate[i][j]))
+                continue;
+            else
+                return false;
+        }
+    }
+    if (year >= 2009 && year <= cur_year) {
+        int months[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        if (month == 2) {
+            if (day > months[month - 1] + ((!(year % 4) && (year % 100)) || (!(year % 400))))
+                return false;
+        }
+        else if (day > months[month - 1])
+            return false;
+    }
+    if (year > cur_year || (year == cur_year && month > cur_month) ||
+        (year == cur_year && month == cur_month && day > cur_day)) {
+        return false;
+    }
+    return true;
 }
 
 vector<string> BitcoinExchange::ft_split(const std::string &str, char sep) {
@@ -136,38 +179,41 @@ bool BitcoinExchange::loop(string line) {
         return false;
     }
     string date = trim(vectorLine[0]);
-    try {
-        std::istringstream iss(vectorLine[1]);
-        iss >> value;
-        if (value > 1000) {
-            throwException(BIG_VALUE, vectorLine[1]);
-            return false;
-        } else if (value < 0) {
-            throwException(NEGATIVE_VALUE, vectorLine[1]);
-            return false;
-        }
+    std::istringstream iss(vectorLine[1]);
+    if (!checkDate(date)) {
+        throwException(FORMAT_ERROR, date);
+        return false;
     }
-    catch (const std::invalid_argument &except) {
-        throwException(INVALID_VALUE, vectorLine[1]);
+    iss >> value;
+    if (value > 1000) {
+        throwException(BIG_VALUE, vectorLine[1]);
+        return false;
+    }
+    else if (value < 0) {
+        throwException(NEGATIVE_VALUE, vectorLine[1]);
         return false;
     }
     outputMap(date);
     return true;
 }
 
+void BitcoinExchange::niceCode(std::ifstream &file) {
+    string line;
+    vector<string> vectorLine;
+    std::getline(file, line);
+    if (line == "date | value") {
+        while (std::getline(file, line))
+            if (!loop(line))
+                continue;
+    }
+    else
+        throwException(FORMAT_ERROR, line);
+}
+
 void BitcoinExchange::readData(const string filename) {
     std::ifstream file(filename.c_str());
     if (file.is_open()) {
-        string line;
-        vector<string> vectorLine;
-        std::getline(file, line);
-        if (line == "date | value") {
-            while (std::getline(file, line))
-                if (!loop(line))
-                    continue;
-        }
-        else
-            throwException(FORMAT_ERROR, line);
+        niceCode(file);
         file.close();
     }
     else

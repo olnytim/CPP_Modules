@@ -35,6 +35,9 @@ private:
     int year;
     int month;
     int day;
+    int cur_year;
+    int cur_month;
+    int cur_day;
 
 public:
     BitcoinExchange();
@@ -50,6 +53,8 @@ public:
     void readData( const string filename );
     vector<string> ft_split(const string &str, char sep);
     void throwException( Cases key, const string &str );
+    void niceCode( std::ifstream &file );
+    bool checkDate( const string &date );
 };
 
 #endif
