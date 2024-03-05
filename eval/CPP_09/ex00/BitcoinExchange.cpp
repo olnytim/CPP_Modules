@@ -1,7 +1,6 @@
-#include <cstdlib>
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange() : year(2009), month(01), day(01) {
+BitcoinExchange::BitcoinExchange() : year(2009), month(01), day(01), value(0), cur_year(0), cur_month(0), cur_day(0) {
     flag = 0;
     std::ifstream file("../CPP_09/ex00/data.csv");
 //    std::ifstream file("data.csv");
@@ -35,6 +34,14 @@ BitcoinExchange::~BitcoinExchange() {
 
 BitcoinExchange::BitcoinExchange( const BitcoinExchange &toCopy ) {
     data = toCopy.data;
+    value = toCopy.value;
+    year = toCopy.year;
+    month = toCopy.month;
+    day = toCopy.day;
+    cur_year = toCopy.cur_year;
+    cur_month = toCopy.cur_month;
+    cur_day = toCopy.cur_day;
+    flag = toCopy.flag;
 }
 
 BitcoinExchange &BitcoinExchange::operator=( const BitcoinExchange &toCopy ) {
@@ -100,10 +107,6 @@ void BitcoinExchange::setData(const std::string &date, float val) {
     data.insert(std::pair<string, float>(date, val));
 }
 
-map<string, float> &BitcoinExchange::getData() {
-    return data;
-}
-
 bool BitcoinExchange::checkDate(const string &date) {
     getDateTime();
     vector<string> vectorDate = ft_split(date, '-');
@@ -147,7 +150,7 @@ bool BitcoinExchange::checkDate(const string &date) {
 
 vector<string> BitcoinExchange::ft_split(const std::string &str, char sep) {
     vector<string> result;
-    string item = "";
+    string item;
     for (size_t i = 0; i < str.size(); i++) {
         if (str[i] == sep) {
             result.push_back(item);
@@ -160,7 +163,7 @@ vector<string> BitcoinExchange::ft_split(const std::string &str, char sep) {
     return result;
 }
 
-void BitcoinExchange::outputMap(string date) {
+void BitcoinExchange::outputMap(const string &date) {
     map<string, float>::iterator it = data.begin();
     if (data.find(date) != data.end())
         cout << date << " => " << value << " = " << value * data[date] << endl;
@@ -176,9 +179,9 @@ void BitcoinExchange::outputMap(string date) {
     }
 }
 
-bool BitcoinExchange::loop(string line) {
+bool BitcoinExchange::loop(const string &line) {
     vector<string> vectorLine = ft_split(line, '|');
-    if (vectorLine[1].length() == 0 || vectorLine.size() != 2) {
+    if (vectorLine[1].empty() || vectorLine.size() != 2) {
         throwException(FORMAT_ERROR, line);
         return false;
     }
@@ -229,7 +232,7 @@ void BitcoinExchange::niceCode(std::ifstream &file) {
         throwException(FORMAT_ERROR, line);
 }
 
-void BitcoinExchange::readData(const string filename) {
+void BitcoinExchange::readData(const string &filename) {
     std::ifstream file(filename.c_str());
     if (file.is_open()) {
         niceCode(file);
