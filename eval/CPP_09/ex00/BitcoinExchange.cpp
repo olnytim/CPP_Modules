@@ -79,12 +79,16 @@ void BitcoinExchange::getDateTime() {
 }
 
 static string &leftTrim(string &str) {
-    str.erase(0, str.find_first_not_of(SKIP));
+    size_t pos = str.find_first_not_of(SKIP);
+    if (pos != string::npos)
+        str.erase(0, pos);
     return str;
 }
 
 static string &rightTrim(string &str) {
-    str.erase(str.find_first_of(SKIP), string::npos);
+    size_t pos = str.find_last_not_of(SKIP);
+    if (pos != string::npos)
+        str.erase(pos + 1, string::npos);
     return str;
 }
 
@@ -179,6 +183,21 @@ bool BitcoinExchange::loop(string line) {
         return false;
     }
     string date = trim(vectorLine[0]);
+    if (date.length() != 10 || date[4] != '-' || date[7] != '-') {
+        throwException(FORMAT_ERROR, date);
+        return false;
+    }
+    string temp = trim(vectorLine[1]);
+    if (std::count(temp.begin(), temp.end(), '.') > 1) {
+        throwException(FORMAT_ERROR, vectorLine[1]);
+        return false;
+    }
+    for (string::iterator it = temp.begin(); it != temp.end(); ++it) {
+        if (!isdigit(*it) && *it != '.') {
+            throwException(FORMAT_ERROR, vectorLine[1]);
+            return false;
+        }
+    }
     std::istringstream iss(vectorLine[1]);
     if (!checkDate(date)) {
         throwException(FORMAT_ERROR, date);

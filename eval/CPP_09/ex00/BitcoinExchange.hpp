@@ -8,6 +8,7 @@
 #include <sstream>
 #include <ctime>
 #include <map>
+#include <algorithm>
 
 #define SKIP " \t\n\r"
 
