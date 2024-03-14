@@ -40,13 +40,13 @@ private:
     static void fillContainers( const string& );
     static void printVector( const string& );
     static void printList( const string& );
-    static void vectorInsert( vector<int>&, vector<int>& );
-    static void vectorInsertion( vector<int>& );
-    static void sortVectorAlgorithm( vector<int>& );
+    static void insertVector( vector<int>&, vector<int>& );
+    static void insertionSort( vector<int>& );
+    static void sortVector( vector<int>& );
     static double sortVector( void );
-    static void listInsert( list<int>&, list<int>& );
+    static void insertLists( list<int>&, list<int>& );
     static void listInsertion( list<int>& );
-    static void sortListAlgorithm( list<int>& );
+    static void sortList( list<int>& );
     static double sortList( void );
 
     static vector<int>	_vecSequence;
