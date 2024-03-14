@@ -32,11 +32,11 @@ private:
     PmergeMe&	operator=( const PmergeMe& );
 
     template <typename T>
-    static T myNext(T, typename std::iterator_traits<T>::difference_type n = 1);
+    static T incrementIterator(T, typename std::iterator_traits<T>::difference_type n = 1);
     template <typename T>
-    static T myPrev(T, typename std::iterator_traits<T>::difference_type n = 1);
+    static T decrementIterator(T, typename std::iterator_traits<T>::difference_type n = 1);
 
-    static bool positiveNumbers( const string& );
+    static bool containsOnlyPositiveNumbers( const string& );
     static void fillContainers( const string& );
     static void printVector( const string& );
     static void printList( const string& );
@@ -51,6 +51,10 @@ private:
 
     static vector<int>	_vecSequence;
     static list<int>	_listSequence;
+
+    static void printVectorRange(size_t start, size_t end);
+
+    static void printListRange(list<int>::iterator start, list<int>::iterator end);
 };
 
 #endif

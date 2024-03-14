@@ -20,7 +20,7 @@ PmergeMe&	PmergeMe::operator=(const PmergeMe& toCopy) {
 PmergeMe::~PmergeMe() {}
 
 template <typename T>
-T	PmergeMe::myNext(T it, typename std::iterator_traits<T>::difference_type n) {
+T	PmergeMe::incrementIterator(T it, typename std::iterator_traits<T>::difference_type n) {
     while (n > 0) {
         ++it;
         --n;
@@ -29,7 +29,7 @@ T	PmergeMe::myNext(T it, typename std::iterator_traits<T>::difference_type n) {
 }
 
 template <typename T>
-T	PmergeMe::myPrev(T it, typename std::iterator_traits<T>::difference_type n) {
+T	PmergeMe::decrementIterator(T it, typename std::iterator_traits<T>::difference_type n) {
     while (n > 0) {
         --it;
         --n;
@@ -37,83 +37,112 @@ T	PmergeMe::myPrev(T it, typename std::iterator_traits<T>::difference_type n) {
     return it;
 }
 
-bool	PmergeMe::positiveNumbers(const string& str) {
-    for (size_t i = 0; i < str.size(); i++) {
-        if (!std::isdigit(str[i]) && str[i] != ' ' && str[i] != '+')
+bool PmergeMe::containsOnlyPositiveNumbers(const string& input) {
+    for (size_t index = 0; index < input.size(); ++index) {
+        char currentChar = input[index];
+        if (!std::isdigit(currentChar) && currentChar != ' ' && currentChar != '+')
             return false;
-        if (str[i] == '+' && !std::isdigit(str[i + 1]))
+        if (currentChar == '+' && !std::isdigit(input[index + 1]))
             return false;
     }
     return true;
 }
 
-void	PmergeMe::fillContainers(const string&	str) {
-    std::stringstream   ss(str), sp(str);
-    string  tmp;
-    long    num;
+void PmergeMe::fillContainers(const string& str) {
+    std::stringstream ss(str);
+    string tmp;
+    long num;
 
-    while (sp >> tmp) {
-        ss >> num;
+    while (ss >> tmp) {
+        std::stringstream converter(tmp);
+        if (!(converter >> num))
+            throw std::logic_error("Error: Unable to convert string to number.");
+
         if (num <= 0)
             throw std::logic_error("Error: Negative number or zero.");
         if (num > std::numeric_limits<int>::max() || tmp.size() > 12)
             throw std::logic_error("Error: Overflow.");
+
         _vecSequence.push_back(static_cast<int>(num));
         _listSequence.push_back(static_cast<int>(num));
     }
+
     if (_vecSequence.empty() || _listSequence.empty())
         throw std::logic_error("Error: Empty sequence.");
 }
 
-void	PmergeMe::printVector(const string& message) {
+void PmergeMe::printVector(const string& message) {
     cout << message << "\t[vector]: \t";
 
-    if (_vecSequence.size() <= 13) {
-        for (size_t i = 0; i < _vecSequence.size(); ++i) {
-            cout << _vecSequence[i];
-            if (i != _vecSequence.size() - 1)
-                cout << " ";
-        }
+    size_t size = _vecSequence.size();
+    if (size <= 13) {
+        printVectorRange(0, size - 1);
     }
-    else {
-        for (size_t i = 0; i < 10; ++i)
-            cout << _vecSequence[i] << " ";
+    else
+    {
+        printVectorRange(0, 9);
         cout << "[...] ";
-        for (size_t i = _vecSequence.size() - 3; i < _vecSequence.size(); ++i) {
-            cout << _vecSequence[i];
-            if (i != _vecSequence.size() - 1)
-                cout << " ";
-        }
+        printVectorRange(size - 3, size - 1);
     }
     cout << endl;
 }
 
-void	PmergeMe::printList(const string& message) {
-    cout << message << "\t[list]: \t";
-    if (_listSequence.size() <= 13) {
-        for (list<int>::iterator it = _listSequence.begin(); it != _listSequence.end(); ++it) {
-            cout << *it;
-            if (it != --_listSequence.end())
-                cout << " ";
-        }
+void PmergeMe::printVectorRange(size_t start, size_t end) {
+    for (size_t i = start; i <= end; ++i) {
+        cout << _vecSequence[i];
+        if (i != end)
+            cout << " ";
     }
-    else
-    {
-        int printedCount = 0;
-        for (list<int>::iterator it = _listSequence.begin(); printedCount != 10 && it != _listSequence.end(); ++it) {
-            ++printedCount;
-            cout << *it << " ";
-        }
+}
+
+//void	PmergeMe::printList(const string& message) {
+//    cout << message << "\t[list]: \t";
+//    if (_listSequence.size() <= 13) {
+//        for (list<int>::iterator it = _listSequence.begin(); it != _listSequence.end(); ++it) {
+//            cout << *it;
+//            if (it != --_listSequence.end())
+//                cout << " ";
+//        }
+//    }
+//    else
+//    {
+//        int printedCount = 0;
+//        for (list<int>::iterator it = _listSequence.begin(); printedCount != 10 && it != _listSequence.end(); ++it) {
+//            ++printedCount;
+//            cout << *it << " ";
+//        }
+//        cout << "[...] ";
+//        list<int>::iterator lastButOne = _listSequence.end();
+//        std::advance(lastButOne, -3);
+//        for (list<int>::iterator it = lastButOne; it != _listSequence.end(); ++it) {
+//            cout << *it;
+//            if (it != --_listSequence.end())
+//                cout << " ";
+//        }
+//    }
+//    cout << endl;
+//}
+
+void PmergeMe::printList(const string& message) {
+    cout << message << "\t[list]: \t";
+
+    size_t size = _listSequence.size();
+    if (size <= 13) {
+        printListRange(_listSequence.begin(), _listSequence.end());
+    } else {
+        printListRange(_listSequence.begin(), incrementIterator(_listSequence.begin(), 10));
         cout << "[...] ";
-        list<int>::iterator lastButOne = _listSequence.end();
-        std::advance(lastButOne, -3);
-        for (list<int>::iterator it = lastButOne; it != _listSequence.end(); ++it) {
-            cout << *it;
-            if (it != --_listSequence.end())
-                cout << " ";
-        }
+        printListRange(decrementIterator(_listSequence.end(), 3), _listSequence.end());
     }
     cout << endl;
+}
+
+void PmergeMe::printListRange(list<int>::iterator start, list<int>::iterator end) {
+    for (list<int>::iterator it = start; it != end; ++it) {
+        cout << *it;
+        if (incrementIterator(it) != end)
+            cout << " ";
+    }
 }
 
 void PmergeMe::vectorInsertion(vector<int>& nums) {
@@ -190,11 +219,11 @@ double	PmergeMe::sortVector() {
 }
 
 void	PmergeMe::listInsertion(list<int>& nums) {
-    for (list<int>::iterator i = myNext(nums.begin()); i != nums.end(); ++i) {
+    for (list<int>::iterator i = incrementIterator(nums.begin()); i != nums.end(); ++i) {
         int tmp = *i;
         list<int>::iterator j = i;
-        while (j != nums.begin() && *myPrev(j) > tmp) {
-            *j = *myPrev(j);
+        while (j != nums.begin() && *decrementIterator(j) > tmp) {
+            *j = *decrementIterator(j);
             j--;
         }
         *j = tmp;
@@ -217,7 +246,7 @@ void	PmergeMe::listInsert(list<int>& bigNums, list<int>& smallNums) {
         if (start_index != smallNums.end())
             start_index = smallNums.end();
 
-        for (list<int>::iterator j = myPrev(start_index); j != myPrev(end_index);) {
+        for (list<int>::iterator j = decrementIterator(start_index); j != decrementIterator(end_index);) {
             bigNums.insert(std::upper_bound(bigNums.begin(), bigNums.end(), *j), *j);
             ++it;
             if (j == smallNums.begin())
@@ -240,8 +269,8 @@ void		PmergeMe::sortListAlgorithm(list<int>& nums) {
 
     for (size_t i = 0; i < size; ++i) {
         if (i != size - 1 || nums.size() % 2 == 0) {
-            int	n = *myNext(nums.begin(), i * 2);
-            int	m = *myNext(nums.begin(), i * 2 + 1);
+            int	n = *incrementIterator(nums.begin(), i * 2);
+            int	m = *incrementIterator(nums.begin(), i * 2 + 1);
             if (n > m)
                 std::swap(n, m);
             bigNums.push_back(m);
@@ -270,7 +299,7 @@ void	PmergeMe::FordJohnson(const string& str) {
     _listSequence.clear();
     _vecSequence.clear();
 
-    if (str.empty() || !positiveNumbers(str))
+    if (str.empty() || !containsOnlyPositiveNumbers(str))
         throw std::logic_error(("Error: invalid argument."));
 
     fillContainers(str);
