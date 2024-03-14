@@ -1,6 +1,6 @@
 #include "PmergeMe.hpp"
 
-vector<int>	PmergeMe::_vecSequence;
+deque<int>	PmergeMe::_dequeSequence;
 list<int>	PmergeMe::_listSequence;
 
 PmergeMe::PmergeMe() {}
@@ -11,7 +11,7 @@ PmergeMe::PmergeMe(const PmergeMe& toCopy) {
 
 PmergeMe&	PmergeMe::operator=(const PmergeMe& toCopy) {
     if (this != &toCopy) {
-        _vecSequence = toCopy._vecSequence;
+        _dequeSequence = toCopy._dequeSequence;
         _listSequence = toCopy._listSequence;
     }
     return *this;
@@ -63,33 +63,33 @@ void PmergeMe::fillContainers(const string& str) {
         if (num > std::numeric_limits<int>::max() || tmp.size() > 12)
             throw std::logic_error("Error: Overflow.");
 
-        _vecSequence.push_back(static_cast<int>(num));
+        _dequeSequence.push_back(static_cast<int>(num));
         _listSequence.push_back(static_cast<int>(num));
     }
 
-    if (_vecSequence.empty() || _listSequence.empty())
+    if (_dequeSequence.empty() || _listSequence.empty())
         throw std::logic_error("Error: Empty sequence.");
 }
 
-void PmergeMe::printVector(const string& message) {
-    cout << message << "\t[vector]: \t";
+void PmergeMe::printDeque(const string& message) {
+    cout << message << "\t[deque]: \t";
 
-    size_t size = _vecSequence.size();
+    size_t size = _dequeSequence.size();
     if (size <= 13) {
-        printVectorRange(0, size - 1);
+        printDequeRange(0, size - 1);
     }
     else
     {
-        printVectorRange(0, 9);
+        printDequeRange(0, 9);
         cout << "[...] ";
-        printVectorRange(size - 3, size - 1);
+        printDequeRange(size - 3, size - 1);
     }
     cout << endl;
 }
 
-void PmergeMe::printVectorRange(size_t start, size_t end) {
+void PmergeMe::printDequeRange(size_t start, size_t end) {
     for (size_t i = start; i <= end; ++i) {
-        cout << _vecSequence[i];
+        cout << _dequeSequence[i];
         if (i != end)
             cout << " ";
     }
@@ -117,7 +117,7 @@ void PmergeMe::printListRange(list<int>::iterator start, list<int>::iterator end
     }
 }
 
-void PmergeMe::insertionSort(vector<int>& nums) {
+void PmergeMe::insertionSort(deque<int>& nums) {
     for (size_t i = 1; i < nums.size(); ++i) {
         size_t  j = i;
         while (j > 0 && nums[j] < nums[j - 1]) {
@@ -127,7 +127,7 @@ void PmergeMe::insertionSort(vector<int>& nums) {
     }
 }
 
-void PmergeMe::insertVector(vector<int>& bigNums, vector<int>& smallNums) {
+void PmergeMe::insertDeque(deque<int>& bigNums, deque<int>& smallNums) {
     int n = 0;
     int power = 0;
     size_t startIndex = 0;
@@ -143,7 +143,7 @@ void PmergeMe::insertVector(vector<int>& bigNums, vector<int>& smallNums) {
             startIndex = smallNums.size();
 
         for (size_t j = startIndex - 1; j >= endIndex;) {
-            std::vector<int>::iterator insertionPoint = std::upper_bound(bigNums.begin(), bigNums.end(), smallNums[j]);
+            std::deque<int>::iterator insertionPoint = std::upper_bound(bigNums.begin(), bigNums.end(), smallNums[j]);
             bigNums.insert(insertionPoint, smallNums[j]);
             ++i;
             if (j == 0)
@@ -153,9 +153,9 @@ void PmergeMe::insertVector(vector<int>& bigNums, vector<int>& smallNums) {
     }
 }
 
-void	PmergeMe::sortVector(vector<int>& nums) {
+void	PmergeMe::sortDeque(deque<int>& nums) {
     int unpairedNumber;
-    std::vector<int> bigNumbers, smallNumbers;
+    std::deque<int> bigNumbers, smallNumbers;
     size_t size = nums.size() / 2 + (nums.size() % 2);
 
     if (nums.size() % 2 == 0)
@@ -180,16 +180,16 @@ void	PmergeMe::sortVector(vector<int>& nums) {
 
     if (unpairedNumber != -1)
         smallNumbers.push_back(unpairedNumber);
-    sortVector(bigNumbers);
+    sortDeque(bigNumbers);
     insertionSort(bigNumbers);
-    insertVector(bigNumbers, smallNumbers);
+    insertDeque(bigNumbers, smallNumbers);
     nums = bigNumbers;
 }
 
-double	PmergeMe::sortVector() {
+double	PmergeMe::sortDeque() {
     clock_t startTime = clock();
-    if (_vecSequence.size() != 1)
-        sortVector(_vecSequence);
+    if (_dequeSequence.size() != 1)
+        sortDeque(_dequeSequence);
     clock_t endTime = clock();
 
     double duration = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC * 1000.0; // duration
@@ -281,20 +281,20 @@ double PmergeMe::sortList() {
 
 void	PmergeMe::FordJohnson(const string& str) {
     _listSequence.clear();
-    _vecSequence.clear();
+    _dequeSequence.clear();
 
     if (str.empty() || !containsOnlyPositiveNumbers(str))
         throw std::logic_error(("Error: invalid argument."));
 
     fillContainers(str);
     printList("Before:");
-    printVector("Before:");
+    printDeque("Before:");
 
-    double vecTime = sortVector();
+    double dequeTime = sortDeque();
     double listTime = sortList();
 
     printList("After:");
-    printVector("After:");
-    cout <<"Time to process a range of "<< _vecSequence.size() << " elements with vector :\t" << vecTime << "\tmilliseconds" << endl;
+    printDeque("After:");
+    cout <<"Time to process a range of "<< _dequeSequence.size() << " elements with deque :\t" << dequeTime << "\tmilliseconds" << endl;
     cout <<"Time to process a range of "<< _listSequence.size() << " elements with list   :\t" << listTime << "\tmilliseconds" << endl;
 }

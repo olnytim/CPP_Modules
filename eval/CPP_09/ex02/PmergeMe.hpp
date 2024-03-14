@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
+#include <deque>
 #include <list>
 #include <stdexcept>
 #include <sstream>
@@ -19,7 +19,7 @@ using std::endl;
 using std::string;
 using std::list;
 using std::deque;
-using std::vector;
+using std::deque;
 
 class PmergeMe {
 public:
@@ -38,21 +38,21 @@ private:
 
     static bool containsOnlyPositiveNumbers( const string& );
     static void fillContainers( const string& );
-    static void printVector( const string& );
+    static void printDeque( const string& );
     static void printList( const string& );
-    static void insertVector( vector<int>&, vector<int>& );
-    static void insertionSort( vector<int>& );
-    static void sortVector( vector<int>& );
-    static double sortVector( void );
+    static void insertDeque( deque<int>&, deque<int>& );
+    static void insertionSort( deque<int>& );
+    static void sortDeque( deque<int>& );
+    static double sortDeque( void );
     static void insertLists( list<int>&, list<int>& );
     static void listInsertion( list<int>& );
     static void sortList( list<int>& );
     static double sortList( void );
 
-    static vector<int>	_vecSequence;
+    static deque<int>	_dequeSequence;
     static list<int>	_listSequence;
 
-    static void printVectorRange(size_t start, size_t end);
+    static void printDequeRange(size_t start, size_t end);
 
     static void printListRange(list<int>::iterator start, list<int>::iterator end);
 };
