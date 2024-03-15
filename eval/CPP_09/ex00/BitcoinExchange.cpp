@@ -191,10 +191,13 @@ bool BitcoinExchange::loop(const string &line) {
         return false;
     }
     string temp = trim(vectorLine[1]);
+    cout << "temp: " << temp << endl;
     if (std::count(temp.begin(), temp.end(), '.') > 1) {
         throwException(FORMAT_ERROR, vectorLine[1]);
         return false;
     }
+    if (temp[temp.length() - 1] == 'f')
+        temp = temp.substr(0, temp.length() - 1);
     for (string::iterator it = temp.begin(); it != temp.end(); ++it) {
         if (!isdigit(*it) && *it != '.') {
             throwException(FORMAT_ERROR, vectorLine[1]);
