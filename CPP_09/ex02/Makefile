@@ -1,10 +1,10 @@
-NAME = btc
+NAME = PmergeMe
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 CC = c++
 
 PREF_OBJ = obj
-SRC = main.cpp BitcoinExchange.cpp
+SRC = main.cpp PmergeMe.cpp
 OBJ = $(patsubst %.cpp, $(PREF_OBJ)/%.o, $(SRC))
 HEADER = $(wildcard *.hpp)
 

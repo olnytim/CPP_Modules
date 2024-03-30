@@ -143,7 +143,7 @@ void PmergeMe::insertDeque(deque<int>& bigNums, deque<int>& smallNums) {
             startIndex = smallNums.size();
 
         for (size_t j = startIndex - 1; j >= endIndex;) {
-            std::deque<int>::iterator insertionPoint = std::upper_bound(bigNums.begin(), bigNums.end(), smallNums[j]);
+            deque<int>::iterator insertionPoint = std::upper_bound(bigNums.begin(), bigNums.end(), smallNums[j]);
             bigNums.insert(insertionPoint, smallNums[j]);
             ++i;
             if (j == 0)
@@ -155,7 +155,7 @@ void PmergeMe::insertDeque(deque<int>& bigNums, deque<int>& smallNums) {
 
 void	PmergeMe::sortDeque(deque<int>& nums) {
     int unpairedNumber;
-    std::deque<int> bigNumbers, smallNumbers;
+    deque<int> bigNumbers, smallNumbers;
     size_t size = nums.size() / 2 + (nums.size() % 2);
 
     if (nums.size() % 2 == 0)
@@ -170,11 +170,11 @@ void	PmergeMe::sortDeque(deque<int>& nums) {
 
     for (size_t i = 0; i < size; ++i) {
         if (i != size - 1 || nums.size() % 2 == 0) {
-            int firstNum = nums[i * 2], secondNum = nums[i * 2 + 1]; // n, m
+            int firstNum = nums[i * 2], secondNum = nums[i * 2 + 1];
             if (firstNum > secondNum)
                 std::swap(firstNum, secondNum);
-            bigNumbers.push_back(secondNum); // m
-            smallNumbers.push_back(firstNum); // n
+            bigNumbers.push_back(secondNum);
+            smallNumbers.push_back(firstNum);
         }
     }
 
@@ -192,7 +192,7 @@ double	PmergeMe::sortDeque() {
         sortDeque(_dequeSequence);
     clock_t endTime = clock();
 
-    double duration = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC * 1000.0; // duration
+    double duration = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC * 1000.0;
 
     return duration;
 }
@@ -212,10 +212,10 @@ void	PmergeMe::listInsertion(list<int>& nums) {
 void	PmergeMe::insertLists(list<int>& bigNumbers, list<int>& smallNumbers) {
     int currentPower = 0;
     int currentN = 0;
-    std::list<int>::iterator startIndex = bigNumbers.begin();
-    std::list<int>::iterator endIndex = startIndex;
+    list<int>::iterator startIndex = bigNumbers.begin();
+    list<int>::iterator endIndex = startIndex;
 
-    for (std::list<int>::iterator it = smallNumbers.begin(); it != smallNumbers.end();) {
+    for (list<int>::iterator it = smallNumbers.begin(); it != smallNumbers.end();) {
         ++currentPower;
         currentN = static_cast<int>(std::pow(2.0, static_cast<double>(currentPower)) - currentN);
         std::advance(startIndex, currentN);
@@ -225,7 +225,7 @@ void	PmergeMe::insertLists(list<int>& bigNumbers, list<int>& smallNumbers) {
         if (startIndex != smallNumbers.end())
             startIndex = smallNumbers.end();
 
-        for (std::list<int>::iterator j = decrementIterator(startIndex); j != decrementIterator(endIndex);) {
+        for (list<int>::iterator j = decrementIterator(startIndex); j != decrementIterator(endIndex);) {
             bigNumbers.insert(std::upper_bound(bigNumbers.begin(), bigNumbers.end(), *j), *j);
             ++it;
             if (j == smallNumbers.begin())
@@ -237,7 +237,7 @@ void	PmergeMe::insertLists(list<int>& bigNumbers, list<int>& smallNumbers) {
 
 void    PmergeMe::sortList(list<int>& nums) {
     int unpairedNumber;
-    std::list<int> bigNumbers, smallNumbers;
+    list<int> bigNumbers, smallNumbers;
     size_t size = nums.size() / 2 + (nums.size() % 2);
 
     if (nums.size() % 2 == 0)
@@ -252,8 +252,8 @@ void    PmergeMe::sortList(list<int>& nums) {
 
     for (size_t i = 0; i < size; ++i) {
         if (i != size - 1 || nums.size() % 2 == 0) {
-            int n = *incrementIterator(nums.begin(), i * 2); // n
-            int m = *incrementIterator(nums.begin(), i * 2 + 1); // m
+            int n = *incrementIterator(nums.begin(), i * 2);
+            int m = *incrementIterator(nums.begin(), i * 2 + 1);
             if (n > m)
                 std::swap(n, m);
             bigNumbers.push_back(m);

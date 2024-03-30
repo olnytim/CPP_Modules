@@ -1,8 +1,7 @@
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange() : year(2009), month(01), day(01) {
+BitcoinExchange::BitcoinExchange() : year(2009), month(01), day(01), value(0), cur_year(0), cur_month(0), cur_day(0) {
     flag = 0;
-//    std::ifstream file("../CPP_09/ex00/data.csv");
     std::ifstream file("data.csv");
     if (!file.is_open()) {
         throwException(INVALID_DATE, "data.csv");
@@ -34,6 +33,14 @@ BitcoinExchange::~BitcoinExchange() {
 
 BitcoinExchange::BitcoinExchange( const BitcoinExchange &toCopy ) {
     data = toCopy.data;
+    value = toCopy.value;
+    year = toCopy.year;
+    month = toCopy.month;
+    day = toCopy.day;
+    cur_year = toCopy.cur_year;
+    cur_month = toCopy.cur_month;
+    cur_day = toCopy.cur_day;
+    flag = toCopy.flag;
 }
 
 BitcoinExchange &BitcoinExchange::operator=( const BitcoinExchange &toCopy ) {
@@ -72,18 +79,22 @@ void BitcoinExchange::throwException(BitcoinExchange::Cases key, const std::stri
 void BitcoinExchange::getDateTime() {
     time_t now = time(0);
     tm *ltm = localtime(&now);
-    year = ltm->tm_year + 1900;
-    month = ltm->tm_mon + 1;
-    day = ltm->tm_mday;
+    cur_year = ltm->tm_year + 1900;
+    cur_month = ltm->tm_mon + 1;
+    cur_day = ltm->tm_mday;
 }
 
 static string &leftTrim(string &str) {
-    str.erase(0, str.find_first_not_of(SKIP));
+    size_t pos = str.find_first_not_of(SKIP);
+    if (pos != string::npos)
+        str.erase(0, pos);
     return str;
 }
 
 static string &rightTrim(string &str) {
-    str.erase(str.find_first_of(SKIP), string::npos);
+    size_t pos = str.find_last_not_of(SKIP);
+    if (pos != string::npos)
+        str.erase(pos + 1, string::npos);
     return str;
 }
 
@@ -95,17 +106,52 @@ void BitcoinExchange::setData(const std::string &date, float val) {
     data.insert(std::pair<string, float>(date, val));
 }
 
-map<string, float> &BitcoinExchange::getData() {
-    return data;
-}
+bool BitcoinExchange::checkDate(const string &date) {
+    getDateTime();
+    vector<string> vectorDate = ft_split(date, '-');
+    if (vectorDate.size() != 3)
+        return false;
+    try {
+        std::istringstream iss(vectorDate[0]);
+        iss >> year;
+        std::istringstream iss1(vectorDate[1]);
+        iss1 >> month;
+        std::istringstream iss2(vectorDate[2]);
+        iss2 >> day;
+    }
+    catch (const std::invalid_argument &except) {
+        return false;
+    }
+    for (size_t i = 0; i < vectorDate.size(); i++) {
+        for (size_t j = 0; j < vectorDate[i].size(); j++) {
+            if (isdigit(vectorDate[i][j]))
+                continue;
+            else
+                return false;
+        }
+    }
+    if (year >= 2009 && year <= cur_year) {
+        int months[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-void BitcoinExchange::checkDate(const string &date) {
-
+        if (month == 2) {
+            if (day > months[month - 1] + ((!(year % 4) && (year % 100)) || (!(year % 400))))
+                return false;
+        }
+        else if (day > months[month - 1])
+            return false;
+        if (day < 1 || month < 1)
+            return false;
+    }
+    if (year > cur_year || (year == cur_year && month > cur_month) ||
+        (year == cur_year && month == cur_month && day > cur_day)) {
+        return false;
+    }
+    return true;
 }
 
 vector<string> BitcoinExchange::ft_split(const std::string &str, char sep) {
     vector<string> result;
-    string item = "";
+    string item;
     for (size_t i = 0; i < str.size(); i++) {
         if (str[i] == sep) {
             result.push_back(item);
@@ -118,7 +164,7 @@ vector<string> BitcoinExchange::ft_split(const std::string &str, char sep) {
     return result;
 }
 
-void BitcoinExchange::outputMap(string date) {
+void BitcoinExchange::outputMap(const string &date) {
     map<string, float>::iterator it = data.begin();
     if (data.find(date) != data.end())
         cout << date << " => " << value << " = " << value * data[date] << endl;
@@ -134,27 +180,42 @@ void BitcoinExchange::outputMap(string date) {
     }
 }
 
-bool BitcoinExchange::loop(string line) {
+bool BitcoinExchange::loop(const string &line) {
     vector<string> vectorLine = ft_split(line, '|');
-    if (vectorLine[1].length() == 0 || vectorLine.size() != 2) {
+    if (vectorLine[1].empty() || vectorLine.size() != 2) {
         throwException(FORMAT_ERROR, line);
         return false;
     }
     string date = trim(vectorLine[0]);
-
-    try {
-        std::istringstream iss(vectorLine[1]);
-        iss >> value;
-        if (value > 1000) {
-            throwException(BIG_VALUE, vectorLine[1]);
-            return false;
-        } else if (value < 0) {
-            throwException(NEGATIVE_VALUE, vectorLine[1]);
+    if (date.length() != 10 || date[4] != '-' || date[7] != '-') {
+        throwException(FORMAT_ERROR, date);
+        return false;
+    }
+    string temp = trim(vectorLine[1]);
+    if (std::count(temp.begin(), temp.end(), '.') > 1) {
+        throwException(FORMAT_ERROR, vectorLine[1]);
+        return false;
+    }
+    if (temp[temp.length() - 1] == 'f')
+        temp = temp.substr(0, temp.length() - 1);
+    for (string::iterator it = temp.begin(); it != temp.end(); ++it) {
+        if (!isdigit(*it) && *it != '.') {
+            throwException(FORMAT_ERROR, vectorLine[1]);
             return false;
         }
     }
-    catch (const std::invalid_argument &except) {
-        throwException(INVALID_VALUE, vectorLine[1]);
+    std::istringstream iss(temp);
+    if (!checkDate(date)) {
+        throwException(FORMAT_ERROR, date);
+        return false;
+    }
+    iss >> value;
+    if (value > 1000) {
+        throwException(BIG_VALUE, vectorLine[1]);
+        return false;
+    }
+    else if (value < 0) {
+        throwException(NEGATIVE_VALUE, vectorLine[1]);
         return false;
     }
     outputMap(date);
@@ -174,7 +235,7 @@ void BitcoinExchange::niceCode(std::ifstream &file) {
         throwException(FORMAT_ERROR, line);
 }
 
-void BitcoinExchange::readData(const string filename) {
+void BitcoinExchange::readData(const string &filename) {
     std::ifstream file(filename.c_str());
     if (file.is_open()) {
         niceCode(file);

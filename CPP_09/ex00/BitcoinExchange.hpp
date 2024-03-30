@@ -8,6 +8,7 @@
 #include <sstream>
 #include <ctime>
 #include <map>
+#include <algorithm>
 
 #define SKIP " \t\n\r"
 
@@ -31,10 +32,13 @@ private:
 
     map<string, float> data;
     int flag;
-    float value;
     int year;
     int month;
     int day;
+    float value;
+    int cur_year;
+    int cur_month;
+    int cur_day;
 
 public:
     BitcoinExchange();
@@ -42,15 +46,15 @@ public:
     BitcoinExchange( const BitcoinExchange &toCopy );
     BitcoinExchange &operator=( const BitcoinExchange &toCopy );
 
-    map<string, float> &getData();
     void setData( const string &date, float value );
-    void outputMap( string data );
+    void outputMap( const string &data );
     void getDateTime();
-    bool loop( string line );
-    void readData( const string filename );
-    vector<string> ft_split(const string &str, char sep);
-    void throwException( Cases key, const string &str );
-	void niceCode(std::ifstream &file);
+    bool loop( const string &line );
+    void readData( const string &filename );
+    static vector<string> ft_split(const string &str, char sep);
+    static void throwException( Cases key, const string &str );
+    void niceCode( std::ifstream &file );
+    bool checkDate( const string &date );
 };
 
 #endif

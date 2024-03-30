@@ -10,7 +10,7 @@ using std::cout;
 
 class ClapTrap {
 protected:
-	string _name;
+	string	_name;
 	int		_health;
 	int		_energy;
 	int		_attack;

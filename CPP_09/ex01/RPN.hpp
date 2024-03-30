@@ -12,7 +12,7 @@ using std::stack;
 
 class RNP {
 private:
-    stack<int> operands;
+    stack<float> operands;
 
 public:
     RNP();

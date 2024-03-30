@@ -39,9 +39,9 @@ const char *RNP::InvalidExpression::what() const throw() {
 
 void RNP::polish(const char &op) {
     if (operands.size() > 1) {
-        int op1 = operands.top();
+        float op1 = operands.top();
         operands.pop();
-        int op2 = operands.top();
+        float op2 = operands.top();
         operands.pop();
         switch (op) {
             case '+':
